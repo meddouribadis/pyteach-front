@@ -2,12 +2,15 @@ import React, { useEffect } from 'react';
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { history } from '../_helpers';
-import { alertActions } from '../_actions';
-import { PrivateRoute } from '../_components';
+import { history } from '../../_helpers';
+import { alertActions } from '../../_actions';
+import { PrivateRoute } from '../../_components';
 
-import Home from '../Pages/Home';
-import Login from '../Pages/Login';
+import { HomePage } from '../../Pages/Home';
+import { LoginPage } from '../../Pages/Login';
+import { RegisterPage } from '../../Pages/Register';
+
+import { Header } from '../Header';
 
 function App() {
     const alert = useSelector(state => state.alert);
@@ -21,6 +24,7 @@ function App() {
 
     return (
         <div className="jumbotron">
+            <Header />
             <div className="container">
                 <div className="col-md-8 offset-md-2">
                     {alert.message &&
@@ -28,8 +32,9 @@ function App() {
                     }
                     <Router history={history}>
                         <Switch>
-                            <PrivateRoute exact path="/" component={Home} />
+                            <PrivateRoute exact path="/" component={HomePage} />
                             <Route path="/login" component={LoginPage} />
+                            <Route path="/register" component={RegisterPage} />
                             <Redirect from="*" to="/" />
                         </Switch>
                     </Router>
