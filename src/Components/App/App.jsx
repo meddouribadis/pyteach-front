@@ -6,11 +6,14 @@ import { history } from '../../_helpers';
 import { alertActions } from '../../_actions';
 import { PrivateRoute } from '../../_components';
 
+// Pages
 import { HomePage } from '../../Pages/Home';
 import { LoginPage } from '../../Pages/Login';
 import { RegisterPage } from '../../Pages/Register';
 
-import { Header } from '../Header';
+// Components
+import { Navbar } from '../Navbar';
+import { FooterBar } from '../Footer';
 
 function App() {
     const alert = useSelector(state => state.alert);
@@ -23,8 +26,8 @@ function App() {
     }, []);
 
     return (
-        <div className="jumbotron">
-            <Header />
+        <div className={'main'}>
+            <Navbar />
             <div className="container">
                 <div className="col-md-8 offset-md-2">
                     {alert.message &&
@@ -40,6 +43,7 @@ function App() {
                     </Router>
                 </div>
             </div>
+            <FooterBar />
         </div>
     );
 }
