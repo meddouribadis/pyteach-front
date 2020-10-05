@@ -19,20 +19,18 @@ function ListeCoursePage() {
     }
 
     return (
-        <div>
+        <div key={"list"}>
             <h1>Liste des cours</h1>
+            <hr />
             {courses.loading && <em>Chargement des cours...</em>}
             {courses.error && <span className="text-danger">Erreur : {courses.error}</span>}
             {courses.items && courses.items.map((course, index) => {
                 return ([
-                        <CourseInfobox course={course} key={course.id}/>,
+                        <CourseInfobox course={course} />,
                         <br />
                     ])
                 })
             }
-
-            <br />
-            <p>TO DO : Liste course to be displayed</p>
         </div>
     );
 }

@@ -39,7 +39,7 @@ function App() {
                             <PrivateRoute exact path="/" component={HomePage} />
                             <Route path="/login" component={LoginPage} />
                             <Route path="/register" component={RegisterPage} />
-                            <Route path="/courses" component={ListeCoursePage} />
+                            <PrivateRoute path="/courses" component={ListeCoursePage} />
                             <Redirect from="*" to="/" />
                         </Switch>
                     </Router>
