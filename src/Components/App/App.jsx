@@ -10,6 +10,7 @@ import { PrivateRoute } from '../../_components';
 import { HomePage } from '../../Pages/Home';
 import { LoginPage } from '../../Pages/Login';
 import { RegisterPage } from '../../Pages/Register';
+import { ListeCoursePage } from '../../Pages/ListeCourse';
 
 // Components
 import { Navbar } from '../Navbar';
@@ -38,6 +39,7 @@ function App() {
                             <PrivateRoute exact path="/" component={HomePage} />
                             <Route path="/login" component={LoginPage} />
                             <Route path="/register" component={RegisterPage} />
+                            <Route path="/courses" component={ListeCoursePage} />
                             <Redirect from="*" to="/" />
                         </Switch>
                     </Router>
