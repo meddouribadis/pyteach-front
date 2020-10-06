@@ -11,6 +11,7 @@ import { HomePage } from '../../Pages/Home';
 import { LoginPage } from '../../Pages/Login';
 import { RegisterPage } from '../../Pages/Register';
 import { ListeCoursePage } from '../../Pages/ListeCourse';
+import { ExercicePage } from '../../Pages/Exercice';
 
 // Components
 import { Navbar } from '../Navbar';
@@ -40,6 +41,7 @@ function App() {
                             <Route path="/login" component={LoginPage} />
                             <Route path="/register" component={RegisterPage} />
                             <PrivateRoute path="/courses" component={ListeCoursePage} />
+                            <Route path="/exercice" component={ExercicePage} />
                             <Redirect from="*" to="/" />
                         </Switch>
                     </Router>
