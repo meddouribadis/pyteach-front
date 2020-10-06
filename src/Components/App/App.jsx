@@ -11,6 +11,9 @@ import { HomePage } from '../../Pages/Home';
 import { LoginPage } from '../../Pages/Login';
 import { RegisterPage } from '../../Pages/Register';
 import { ListeCoursePage } from '../../Pages/ListeCourse';
+import { beginCourse } from '../../Pages/Cours';
+import { CourseInfobox } from '../CourseInfobox';
+
 
 // Components
 import { Navbar } from '../Navbar';
