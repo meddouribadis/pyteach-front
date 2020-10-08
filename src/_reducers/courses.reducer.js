@@ -14,6 +14,18 @@ export function courses(state = {}, action) {
             return {
                 error: action.error
             };
+        case courseConstants.GETBYID_REQUEST:
+            return {
+                loading: true
+            };
+        case courseConstants.GETBYID_SUCCESS:
+            return {
+                currentCourse: action.course
+            };
+        case courseConstants.GETBYID_FAILURE:
+            return {
+                error: action.error
+            };
         case courseConstants.DELETE_REQUEST:
             // add 'deleting:true' property to user being deleted
             return {
