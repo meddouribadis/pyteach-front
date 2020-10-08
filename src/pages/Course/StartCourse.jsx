@@ -29,19 +29,18 @@ function displayCourseInfo(course){
     return (
         <div className="course">
             <h1>{course.title}</h1>
+            <p className="blockquote-footer">Catégorie : {course.category.title} - Auteur : {course.User.firstName} {course.User.lastName}</p>
             <p className="body">{course.description}</p>
             <h2>Le contenu de ce cours :</h2>
 
-            <ul>
-                <li>A</li>
-                <li>B</li>
-                <li>C</li>
-                <li>D</li>
-                <li>E</li>
-                <li>F</li>
-                <li>G</li>
-
-            </ul>
+            <div className="list-group">
+                {course.exercices.map((exercice, index) => {
+                    return ([
+                        <a href="#" className="list-group-item list-group-item-action">{exercice.title}</a>
+                    ])
+                })
+                }
+            </div>
 
         </div>
     );
