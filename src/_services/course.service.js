@@ -4,6 +4,7 @@ import { authHeader } from '../_helpers';
 export const courseService = {
     getAll,
     getById,
+    getBySlug,
     update,
     delete: _delete
 };
@@ -15,6 +16,15 @@ function getAll() {
     };
 
     return fetch(`${config.apiUrl}/courses`, requestOptions).then(handleResponse);
+}
+
+function getBySlug(slug) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+
+    return fetch(`${config.apiUrl}/courses/${slug}`, requestOptions).then(handleResponse);
 }
 
 function getById(id) {

@@ -5,6 +5,7 @@ import { history } from '../_helpers';
 
 export const courseActions = {
     getAll,
+    getBySlug,
     getById,
     delete: _delete
 };
@@ -25,6 +26,21 @@ function getAll() {
     function failure(error) { return { type: courseConstants.GETALL_FAILURE, error } }
 }
 
+function getBySlug(slug) {
+    return dispatch => {
+        dispatch(request());
+
+        courseService.getById(slug)
+            .then(
+                course => dispatch(success(course)),
+                error => dispatch(failure(error.toString()))
+            );
+    };
+
+    function request() { return { type: courseConstants.GETBYID_REQUEST } }
+    function success(course) { return { type: courseConstants.GETBYID_SUCCESS, course } }
+    function failure(error) { return { type: courseConstants.GETBYID_FAILURE, error } }
+}
 
 function getById(id) {
     return dispatch => {
