@@ -10,15 +10,13 @@ import { PrivateRoute } from '../../_components';
 import { HomePage } from '../../Pages/Home';
 import { LoginPage } from '../../Pages/Login';
 import { RegisterPage } from '../../Pages/Register';
-import { ListeCoursePage } from '../../Pages/ListeCourse';
+import { CourseRouter } from "../../Pages/Course/Course";
 import { ExercicePage } from '../../Pages/Exercice';
-import { beginCourse } from '../../Pages/Cours';
-import { CourseInfobox } from '../CourseInfobox';
-
 
 // Components
 import { Navbar } from '../Navbar';
 import { FooterBar } from '../Footer';
+
 
 function App() {
     const alert = useSelector(state => state.alert);
@@ -43,9 +41,8 @@ function App() {
                             <PrivateRoute exact path="/" component={HomePage} />
                             <Route path="/login" component={LoginPage} />
                             <Route path="/register" component={RegisterPage} />
-                            <PrivateRoute path="/courses" component={ListeCoursePage} />
+                            <Route path="/courses" component={CourseRouter}/>
                             <Route path="/exercice" component={ExercicePage} />
-                            <Redirect from="*" to="/" />
                         </Switch>
                     </Router>
                 </div>

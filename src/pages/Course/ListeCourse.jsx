@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Switch, Link, Route, useParams, useRouteMatch} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { courseActions } from '../../_actions';
@@ -9,6 +9,7 @@ function ListeCoursePage() {
     const user = useSelector(state => state.authentication.user);
     const courses = useSelector(state => state.courses);
     const dispatch = useDispatch();
+
 
     useEffect(() => {
         dispatch(courseActions.getAll());
@@ -50,8 +51,6 @@ Bonne formation ! </p>
             <a>Installation</a>
             <a>Premier pas</a>
             <a>Les fonctions en python</a>
-
-
 
 
             <hr />

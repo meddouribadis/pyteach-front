@@ -9,7 +9,7 @@ function CourseInfobox(props) {
             <div className="card-body">
                 <h5 className="card-title">{props.course.description}</h5>
                 <p className="card-text">{props.course.tags}</p>
-                <Link to="/{props.course.title}"><a className="btn btn-primary">Acceder au cours</a></Link>
+                <Link to="/"><a className="btn btn-primary">Acceder au cours</a></Link>
             </div>
         </div>
     );
