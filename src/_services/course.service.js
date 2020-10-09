@@ -5,6 +5,7 @@ export const courseService = {
     getAll,
     getById,
     getBySlug,
+    postCourse,
     update,
     delete: _delete
 };
@@ -34,6 +35,19 @@ function getById(id) {
     };
 
     return fetch(`${config.apiUrl}/courses/${id}`, requestOptions).then(handleResponse);
+}
+
+function postCourse(course) {
+
+    const headersVar = Object.assign({ 'Content-Type': 'application/json' }, authHeader());
+
+    const requestOptions = {
+        method: 'POST',
+        headers: headersVar,
+        body: JSON.stringify(course)
+    };
+
+    return fetch(`${config.apiUrl}/courses`, requestOptions).then(handleResponse);
 }
 
 function update(user) {

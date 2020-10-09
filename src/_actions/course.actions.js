@@ -1,5 +1,5 @@
-import { courseConstants } from '../_constants';
-import { courseService } from '../_services';
+import {courseConstants} from '../_constants';
+import {courseService} from '../_services';
 import { alertActions } from './';
 import { history } from '../_helpers';
 
@@ -7,6 +7,7 @@ export const courseActions = {
     getAll,
     getBySlug,
     getById,
+    postCourse,
     delete: _delete
 };
 
@@ -56,6 +57,29 @@ function getById(id) {
     function request() { return { type: courseConstants.GETBYID_REQUEST } }
     function success(course) { return { type: courseConstants.GETBYID_SUCCESS, course } }
     function failure(error) { return { type: courseConstants.GETBYID_FAILURE, error } }
+}
+
+
+function postCourse(course) {
+    return dispatch => {
+        dispatch(request(course));
+
+        courseService.postCourse(course)
+            .then(
+                course => {
+                    dispatch(success(course));
+                    dispatch(alertActions.success('Cours crée avec succès'));
+                },
+                error => {xs
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(course) { return { type: courseConstants.POST_COURSE_REQUEST, course } }
+    function success(course) { return { type: courseConstants.POST_COURSE_SUCCESS, course } }
+    function failure(error) { return { type: courseConstants.POST_COURSE_FAILURE, error } }
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
