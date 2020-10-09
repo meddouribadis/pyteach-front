@@ -12,11 +12,13 @@ import { LoginPage } from '../../Pages/Login';
 import { RegisterPage } from '../../Pages/Register';
 import { CourseRouter } from "../../Pages/Course/Course";
 import { ExercicePage } from '../../Pages/Exercice';
+import { DashboardRouter } from '../../Pages/Dashboard';
 
 // Components
 import { Navbar } from '../Navbar';
 import { FooterBar } from '../Footer';
 
+import './App.css';
 
 function App() {
     const alert = useSelector(state => state.alert);
@@ -43,6 +45,7 @@ function App() {
                             <Route path="/register" component={RegisterPage} />
                             <Route path="/courses" component={CourseRouter}/>
                             <Route path="/exercice" component={ExercicePage} />
+                            <Route path="/dashboard" component={DashboardRouter} />
                         </Switch>
                     </Router>
                 </div>
