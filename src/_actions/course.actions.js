@@ -70,7 +70,7 @@ function postCourse(course) {
                     dispatch(success(course));
                     dispatch(alertActions.success('Cours crée avec succès'));
                 },
-                error => {xs
+                error => {
                     dispatch(failure(error.toString()));
                     dispatch(alertActions.error(error.toString()));
                 }
