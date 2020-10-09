@@ -1,32 +1,47 @@
-import React, { Component } from 'react';
-import { Editor } from '@tinymce/tinymce-react';
+import React, { useState } from "react";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import {userActions} from "../../_actions";
 
-class CreateCourse extends Component {
-    handleEditorChange = (content, editor) => {
-        console.log('Content was updated:', content);
+function CreateCourse() {
+    const [course, setCourse] = useState({
+        titleCourse: '',
+        bodyCourse: '',
+    });
+    const [submitted, setSubmitted] = useState(false);
+
+    function handleChange(e) {
+        const { name, value } = e.target;
+        setCourse(course => ({ ...course, [name]: value }));
     }
 
-    render() {
-        return (
-            <Editor
-                initialValue="<p>This is the initial content of the editor</p>"
-                init={{
-                    height: 500,
-                    menubar: false,
-                    plugins: [
-                        'advlist autolink lists link image charmap print preview anchor',
-                        'searchreplace visualblocks code fullscreen',
-                        'insertdatetime media table paste code help wordcount'
-                    ],
-                    toolbar:
-                        'undo redo | formatselect | bold italic backcolor | \
-                        alignleft aligncenter alignright alignjustify | \
-                        bullist numlist outdent indent | removeformat | help'
-                }}
-                onEditorChange={this.handleEditorChange}
-            />
-        );
+    function handleBodyChange(e) {
+        setCourse(course => ({ ...course, ['bodyCourse']: e }));
+        console.log(course);
     }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        setSubmitted(true);
+        console.log(course);
+    }
+
+    return (
+        <div className="body">
+            <h1>Créer un cours</h1>
+            <hr/>
+            <div className="form-group">
+                <label>Titre du cours</label>
+                <input type="text" name="titleCourse" value={course.titleCourse} onChange={handleChange} className={'form-control' + (submitted && !course.titleCourse ? ' is-invalid' : '')} placeholder="Titre du cours" />
+                {submitted && !course.titleCourse &&
+                <div className="invalid-feedback">Le titre de cours est requis</div>
+                }
+            </div>
+
+            <ReactQuill theme="snow" name="bodyCourse" value={course.bodyCourse} onChange={handleBodyChange}/>
+        </div>
+    );
 }
 
 export {CreateCourse};
