@@ -240,4 +240,50 @@ function ManageCourses(){
     );
 }
 
-export {CreateCourse, EditCourse, ManageCourses};
+function SeeCourses(){
+    const user = useSelector(state => state.authentication.user);
+    const courses = useSelector(state => state.courses);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(courseActions.getAll());
+    }, []);
+
+    return (
+        <div className="row">
+            <div className="col">
+                <h1>Liste des cours</h1>
+                <hr/>
+                {courses.loading && <em>Loading cours...</em>}
+                {courses.error && <span className="text-danger">ERROR: {courses.error}</span>}
+                {courses.items &&
+                <table className="table">
+                    <thead className={"thead-dark"}>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Titre</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Auteur</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {courses.items.map((course, index) =>
+                        <tr>
+                            <th scope="row">{course.id_course}</th>
+                            <td>{course.title}</td>
+                            <td>{course.description}</td>
+                            <td>{course.author_id}</td>
+                            <td><Link to={{pathname: `/dashboard/course/edit/${course.id_course}`}} className="btn btn-primary">Afficher</Link></td>
+                        </tr>
+                    )}
+                    </tbody>
+                </table>
+                }
+            </div>
+        </div>
+    );
+}
+
+export {CreateCourse, EditCourse, ManageCourses, SeeCourses};

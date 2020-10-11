@@ -26,13 +26,13 @@ function Navbar() {
 
     return (
         <div
-            className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-            <h5 className="my-0 mr-md-auto font-weight-normal">PyTeach</h5>
+        class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <h5 className="my-0 mr-md-auto font-weight-normal"><h5 class="table-dark" href="#">PyTeach</h5></h5>
             <nav className="my-2 my-md-0 mr-md-3">
-                <a className="p-2 text-dark" href={"/courses"}>Cours</a>
-                <a className="p-2 text-dark" href="/">Présentation</a>
-                <a className="p-2 text-dark" href="#">Support</a>
-                <a className="p-2 text-dark" href="#">Pricing</a>
+                <a class="table-dark" href={"/courses"}>Cours</a>&nbsp;&nbsp;
+                <a class="table-dark" href="/">Présentation</a>&nbsp;&nbsp;
+                <a class="table-dark" href="#">Support</a>&nbsp;&nbsp;
+                <a class="table-dark" href="#">Pricing</a>&nbsp;&nbsp;
                 <UserInfo />
             </nav>
 
