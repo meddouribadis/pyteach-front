@@ -45,13 +45,15 @@ function getBySlug(slug) {
 
 function getById(id) {
     return dispatch => {
-        dispatch(request());
+        return new Promise((resolve, reject) => {
+            dispatch(request());
 
-        courseService.getById(id)
-            .then(
-                course => dispatch(success(course)),
-                error => dispatch(failure(error.toString()))
-            );
+            courseService.getById(id)
+                .then(
+                    course => resolve(dispatch(success(course))),
+                    error => reject(dispatch(failure(error.toString())))
+                );
+        });
     };
 
     function request() { return { type: courseConstants.GETBYID_REQUEST } }

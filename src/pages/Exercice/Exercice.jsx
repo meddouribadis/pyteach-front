@@ -29,7 +29,7 @@ function runit() {
         });
 }
 
-function ExercicePage() {
+function Exercice() {
 
     useEffect(() => {
     });
@@ -55,4 +55,4 @@ function ExercicePage() {
     );
 }
 
-export { ExercicePage };
+export { Exercice };

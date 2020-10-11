@@ -11,7 +11,7 @@ import { HomePage } from '../../Pages/Home';
 import { LoginPage } from '../../Pages/Login';
 import { RegisterPage } from '../../Pages/Register';
 import { CourseRouter } from "../../Pages/Course/Course";
-import { ExercicePage } from '../../Pages/Exercice';
+import { Exercice } from '../../Pages/Exercice';
 import { DashboardRouter } from '../../Pages/Dashboard';
 
 // Components
@@ -33,7 +33,7 @@ function App() {
     return (
         <div className={'main'}>
             <Navbar />
-            <div className="container">
+            <div className="container-fluid">
                 <div className="col-md-8 offset-md-2">
                     {alert.message &&
                     <div className={`alert ${alert.type}`}>{alert.message}</div>
@@ -44,7 +44,7 @@ function App() {
                             <Route path="/login" component={LoginPage} />
                             <Route path="/register" component={RegisterPage} />
                             <Route path="/courses" component={CourseRouter}/>
-                            <Route path="/exercice" component={ExercicePage} />
+                            <Route path="/exercice" component={Exercice} />
                             <Route path="/dashboard" component={DashboardRouter} />
                         </Switch>
                     </Router>
