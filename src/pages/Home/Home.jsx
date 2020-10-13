@@ -4,6 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { userActions } from '../../_actions';
 
+//CSS
+import "./Home.css";
+
+
 function HomePage() {
     const users = useSelector(state => state.users);
     const user = useSelector(state => state.authentication.user);
@@ -18,26 +22,34 @@ function HomePage() {
     }
 
     return (
-        <div className="col-lg-8 offset-lg-2">
-            <h1>Hi {user.firstName}!</h1>
-            <p>You're logged in with React Hooks!!</p>
-            <h3>All registered users:</h3>
-            {users.loading && <em>Loading users...</em>}
-            {users.error && <span className="text-danger">ERROR: {users.error}</span>}
-            {users.items &&
-            <ul>
-                {users.items.map((user, index) =>
-                    <li key={user.id}>
-                        {user.firstName + ' ' + user.lastName}
-                        {
-                            user.deleting ? <em> - Deleting...</em>
-                                : user.deleteError ? <span className="text-danger"> - ERROR: {user.deleteError}</span>
-                                : <span> - <a onClick={() => handleDeleteUser(user.id)} className="text-primary">Delete</a></span>
-                        }
-                    </li>
-                )}
-            </ul>
-            }
+        <div className="col-lg-12">
+            <div className="col-lg-8">
+            <h5>Salut {user.firstName} alors te revoilà!!!</h5>
+        </div>
+<div className="my-0 mr-md-auto font-weight-normal">
+<ul class="nav nav-pills flex-column">
+  <li class="nav-item">
+    <a class="nav-link active" href="#">Mes cours</a>
+    <ul class="nav nav-pills flex-column">
+       <li class="nav-item">
+          <a class="nav-link" href="#">Mes cours suivis</a>
+       </li>
+       <li class="nav-item dropdown">
+         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Exercices</a>
+         <div class="dropdown-menu" >
+            <a class="dropdown-item" href="#">Mes exercices rendus</a>
+            <a class="dropdown-item" href="#">Correction du prof</a>
+         </div>
+      </li>
+   </ul>
+  </li>
+  
+  <li class="nav-item">
+    <a class="nav-link" href="#">Modifier mon profil</a>
+  </li>
+</ul>
+</div>
+
             <p>
                 <Link to="/login">Logout</Link>
             </p>
