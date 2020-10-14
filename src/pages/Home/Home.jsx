@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { userActions } from '../../_actions';
+import {ListeCoursePage} from "../Course/CourseSuivi";
 
 //CSS
 import "./Home.css";
@@ -32,7 +33,7 @@ function HomePage() {
     <a class="nav-link active" href="#">Mes cours</a>
     <ul class="nav nav-pills flex-column">
        <li class="nav-item">
-          <a class="nav-link" href="#">Mes cours suivis</a>
+          <a class="nav-link" href="/courseSuivi">Mes cours suivis</a>
        </li>
        <li class="nav-item dropdown">
          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Exercices</a>

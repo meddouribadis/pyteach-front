@@ -13,6 +13,7 @@ import { RegisterPage } from '../../Pages/Register';
 import { CourseRouter } from "../../Pages/Course/Course";
 import { Exercice } from '../../Pages/Exercice';
 import { DashboardRouter } from '../../Pages/Dashboard';
+import {CourseSuiviRouter, ListeCoursePage} from "../../Pages/Course/CourseSuivi";
 
 // Components
 import { Navbar } from '../Navbar';
@@ -45,6 +46,7 @@ function App() {
                             <Route path="/register" component={RegisterPage} />
                             <Route path="/courses" component={CourseRouter}/>
                             <Route path="/exercice" component={Exercice} />
+                            <Route path="/CourseSuivi" component={CourseSuiviRouter} />
                             <Route path="/dashboard" component={DashboardRouter} />
                         </Switch>
                     </Router>
