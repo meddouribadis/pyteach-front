@@ -1,0 +1,30 @@
+.site-header {
+    background-color: #005793cc;
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+    padding: .75rem;
+    margin-bottom: 1.5rem;
+}
+
+.site-header a {
+    color: white;
+    border-bottom: 2px solid rgba(255, 255, 255, 0);
+    transition: ease-in-out color .15s;
+}
+
+.site-header .dropdown-item {
+    color: #212529;
+}
+
+.site-header .dropdown-item:hover {
+    color: #2d3339;
+}
+
+.site-header a:hover {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+    text-decoration: none;
+}
+
+.navbar-brand .logo {
+    max-width: 150px;
+}
