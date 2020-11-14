@@ -26,17 +26,20 @@ function DashboardRouter() {
 function DashboardHome() {
 
     return (
-        <div className="row">
-            <div className="col">
-                <h1>Tableau de bord !</h1>
-                <hr/>
-                <p>Vous pouvez réalisez les actions suivantes :</p>
-                <Link to={{pathname: "/dashboard/course/create"}} className="btn btn-link">Créer un cours</Link>
-                <Link to={{pathname: "/dashboard/course/manage"}} className="btn btn-link">Gérer les cours</Link>
-                <Link to={{pathname: "/dashboard/create-category"}} className="btn btn-link">Créer une catégorie</Link>
-                <Link to={{pathname: "/dashboard/manage-categories"}} className="btn btn-link">Gérer les catégories</Link>
+        <div className="container">
+            <div className="row">
+                <div className="col-12">
+                    <h1>Tableau de bord !</h1>
+                    <hr/>
+                    <p>Vous pouvez réalisez les actions suivantes :</p>
+                    <Link to={{pathname: "/dashboard/course/create"}} className="btn btn-link">Créer un cours</Link>
+                    <Link to={{pathname: "/dashboard/course/manage"}} className="btn btn-link">Gérer les cours</Link>
+                    <Link to={{pathname: "/dashboard/create-category"}} className="btn btn-link">Créer une catégorie</Link>
+                    <Link to={{pathname: "/dashboard/manage-categories"}} className="btn btn-link">Gérer les catégories</Link>
+                </div>
             </div>
         </div>
+
     );
 }
 

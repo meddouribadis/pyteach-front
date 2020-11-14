@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { history } from '../../_helpers';
 import { alertActions } from '../../_actions';
-import { PrivateRoute } from '../../_components';
+import { PrivateRoute, SecuredRoute } from '../../_components';
 
 // Pages
 import { HomePage } from '../../Pages/Home';
@@ -47,7 +47,8 @@ function App() {
                         <Route path="/cours" component={CourseRouter}/>
                         <Route path="/exercice" component={Exercice} />
                         <Route path="/CourseSuivi" component={CourseSuiviRouter} />
-                        <Route path="/dashboard" component={DashboardRouter} />
+                        
+                        <SecuredRoute path="/dashboard" component={DashboardRouter} />
                     </Switch>
                 </Router>
             <FooterBar />

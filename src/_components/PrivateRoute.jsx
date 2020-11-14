@@ -15,4 +15,22 @@ function PrivateRoute({ component: Component, roles, ...rest }) {
     );
 }
 
-export { PrivateRoute };
+function SecuredRoute({ component: Component, roles, ...rest }) {
+    return (
+        <Route {...rest} render={props => {
+            const user = JSON.parse(localStorage.getItem('user'));
+
+            if (!localStorage.getItem('user')) {
+                return <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+            }
+
+            if(user.role == 'STUDENT') {
+                return <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+            }
+
+            return <Component {...props} />
+        }} />
+    );
+}
+
+export { PrivateRoute, SecuredRoute };
