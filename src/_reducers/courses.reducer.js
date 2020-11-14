@@ -2,28 +2,28 @@ import { courseConstants } from '../_constants';
 
 export function courses(state = {}, action) {
     switch (action.type) {
-        case courseConstants.GETALL_REQUEST:
+        case courseConstants.GET_ALL_REQUEST:
             return {
                 loading: true
             };
-        case courseConstants.GETALL_SUCCESS:
+        case courseConstants.GET_ALL_SUCCESS:
             return {
                 items: action.courses
             };
-        case courseConstants.GETALL_FAILURE:
+        case courseConstants.GET_ALL_FAILURE:
             return {
                 error: action.error
             };
 
-        case courseConstants.GETBYID_REQUEST:
+        case courseConstants.GET_BY_ID_REQUEST:
             return {
                 loading: true
             };
-        case courseConstants.GETBYID_SUCCESS:
+        case courseConstants.GET_BY_ID_SUCCESS:
             return {
                 currentCourse: action.course
             };
-        case courseConstants.GETBYID_FAILURE:
+        case courseConstants.GET_BY_ID_FAILURE:
             return {
                 error: action.error
             };

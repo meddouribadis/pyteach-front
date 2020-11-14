@@ -22,9 +22,9 @@ function getAll() {
             );
     };
 
-    function request() { return { type: courseConstants.GETALL_REQUEST } }
-    function success(courses) { return { type: courseConstants.GETALL_SUCCESS, courses } }
-    function failure(error) { return { type: courseConstants.GETALL_FAILURE, error } }
+    function request() { return { type: courseConstants.GET_ALL_REQUEST } }
+    function success(courses) { return { type: courseConstants.GET_ALL_SUCCESS, courses } }
+    function failure(error) { return { type: courseConstants.GET_ALL_FAILURE, error } }
 }
 
 function getBySlug(slug) {
@@ -38,9 +38,9 @@ function getBySlug(slug) {
             );
     };
 
-    function request() { return { type: courseConstants.GETBYID_REQUEST } }
-    function success(course) { return { type: courseConstants.GETBYID_SUCCESS, course } }
-    function failure(error) { return { type: courseConstants.GETBYID_FAILURE, error } }
+    function request() { return { type: courseConstants.GET_BY_ID_REQUEST } }
+    function success(course) { return { type: courseConstants.GET_BY_ID_SUCCESS, course } }
+    function failure(error) { return { type: courseConstants.GET_BY_ID_FAILURE, error } }
 }
 
 function getById(id) {
@@ -56,9 +56,9 @@ function getById(id) {
         });
     };
 
-    function request() { return { type: courseConstants.GETBYID_REQUEST } }
-    function success(course) { return { type: courseConstants.GETBYID_SUCCESS, course } }
-    function failure(error) { return { type: courseConstants.GETBYID_FAILURE, error } }
+    function request() { return { type: courseConstants.GET_BY_ID_REQUEST } }
+    function success(course) { return { type: courseConstants.GET_BY_ID_SUCCESS, course } }
+    function failure(error) { return { type: courseConstants.GET_BY_ID_FAILURE, error } }
 }
 
 
