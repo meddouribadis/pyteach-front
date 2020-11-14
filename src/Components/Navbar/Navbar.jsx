@@ -31,41 +31,14 @@ function Navbar() {
         );
     }
 
-    function TeacherLinks(){
-        return (
-            <Fragment>
-                <a className="py-2 d-none d-md-inline-block" href="/dashboard/classes">Mes classes</a>
-                <a className="py-2 d-none d-md-inline-block" href="/dashboard/signalements">Signalements</a>
-                <a className="py-2 d-none d-md-inline-block" href="/calendrier">Calendrier</a>
-            </Fragment>
-        );
-    }
-
     return (
         <nav className="site-header sticky-top">
             <div className="container d-flex flex-column flex-md-row justify-content-between align-items-center">
                 <a className="navbar-brand" href="/">
-                    <img src={logo} alt="" className={"img-fluid logo"}/>
+                    Pyteach
                 </a>
 
                 <a className="top-link py-2 d-none d-md-inline-block" href="/">Accueil</a>
-
-                {user && user.role !== 'TEACHER' &&
-                <div className="dropdown show">
-                    <a className="py-2 d-none d-md-inline-block dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Signalements</a>
-                    <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a className="dropdown-item" href="/signalement/">Mes signalements</a>
-                        <a className="dropdown-item" href="/signalement/infection">Je suis infecté</a>
-                        <a className="dropdown-item" href="/signalement/cas-contact">Je suis cas contact</a>
-                    </div>
-                </div>
-                }
-
-
-                {user && user.role === 'TEACHER' &&
-                <TeacherLinks/>
-                }
-
                 <a className="top-link py-2 d-none d-md-inline-block" href="#">Information</a>
                 <UserInfo/>
             </div>

@@ -34,24 +34,22 @@ function App() {
     return (
         <div className={'main'}>
             <Navbar />
-            <div className="container-fluid">
-                <div className="col-md-8 offset-md-2">
-                    {alert.message &&
-                    <div className={`alert ${alert.type}`}>{alert.message}</div>
-                    }
-                    <Router history={history}>
-                        <Switch>
-                            <PrivateRoute exact path="/" component={HomePage} />
-                            <Route path="/login" component={LoginPage} />
-                            <Route path="/register" component={RegisterPage} />
-                            <Route path="/courses" component={CourseRouter}/>
-                            <Route path="/exercice" component={Exercice} />
-                            <Route path="/CourseSuivi" component={CourseSuiviRouter} />
-                            <Route path="/dashboard" component={DashboardRouter} />
-                        </Switch>
-                    </Router>
-                </div>
-            </div>
+                {alert.message &&
+                    <div className="container">
+                        <div className={`alert ${alert.type}`}>{alert.message}</div>
+                    </div>
+                }
+                <Router history={history}>
+                    <Switch>
+                        <PrivateRoute exact path="/" component={HomePage} />
+                        <Route path="/login" component={LoginPage} />
+                        <Route path="/register" component={RegisterPage} />
+                        <Route path="/cours" component={CourseRouter}/>
+                        <Route path="/exercice" component={Exercice} />
+                        <Route path="/CourseSuivi" component={CourseSuiviRouter} />
+                        <Route path="/dashboard" component={DashboardRouter} />
+                    </Switch>
+                </Router>
             <FooterBar />
         </div>
     );
