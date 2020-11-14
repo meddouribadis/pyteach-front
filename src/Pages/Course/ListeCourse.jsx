@@ -125,7 +125,7 @@ function SeeCourses(){
                                 <td>{course.title}</td>
                                 <td>{course.description}</td>
                                 <td>{course.author_id}</td>
-                                <td><Link to={{pathname: `/dashboard/course/edit/${course.id_course}`}} className="btn btn-primary">Afficher</Link></td>
+                                <td><Link to={{pathname: `/cours/${course.id_course}`}} className="btn btn-primary">Afficher</Link></td>
                             </tr>
                         )}
                         </tbody>

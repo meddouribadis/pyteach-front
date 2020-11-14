@@ -17,11 +17,16 @@ function StartCoursePage() {
     }, []);
 
     return (
-        <div className="start-course">
-            {courses.loading && <em>Chargement...</em>}
-            {courses.error && <span className="text-danger">Erreur : {courses.error}</span>}
-            {courses.currentCourse && displayCourseInfo(courses.currentCourse)}
+        <div className="container">
+            <div className="row">
+                <div className="col start-course">
+                    {courses.loading && <em>Chargement...</em>}
+                    {courses.error && <span className="text-danger">Erreur : {courses.error}</span>}
+                    {courses.currentCourse && displayCourseInfo(courses.currentCourse)}
+                </div>
+            </div>
         </div>
+
     );
 }
 
