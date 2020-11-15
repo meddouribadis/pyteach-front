@@ -157,7 +157,7 @@ function EditCourse() {
         <div className="container">
             <div className="row">
                 <div className="col-12">
-                    {courses.loading && <em>Loading cours...</em>}
+                    {courses.loading && <em>Chargement...</em>}
                     {courses.error && <span className="text-danger">ERROR: {courses.error}</span>}
                     {course !== null &&
                     <form name="form" onSubmit={handleSubmit}>

@@ -21,7 +21,7 @@ export function articles(state = {}, action) {
             };
         case articleConstants.GET_BY_ID_SUCCESS:
             return {
-                currentCourse: action.article
+                currentArticle: action.article
             };
         case articleConstants.GET_BY_ID_FAILURE:
             return {

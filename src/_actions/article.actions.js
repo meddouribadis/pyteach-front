@@ -5,7 +5,6 @@ import {history} from '../_helpers';
 
 export const articleActions = {
     getAll,
-    getBySlug,
     getById,
     postArticle,
     delete: _delete
@@ -25,22 +24,6 @@ function getAll() {
     function request() { return { type: articleConstants.GET_ALL_REQUEST } }
     function success(articles) { return { type: articleConstants.GET_ALL_SUCCESS, articles } }
     function failure(error) { return { type: articleConstants.GET_ALL_FAILURE, error } }
-}
-
-function getBySlug(slug) {
-    return dispatch => {
-        dispatch(request());
-
-        articleService.getById(slug)
-            .then(
-                article => dispatch(success(article)),
-                error => dispatch(failure(error.toString()))
-            );
-    };
-
-    function request() { return { type: articleConstants.GET_BY_ID_REQUEST } }
-    function success(article) { return { type: articleConstants.GET_BY_ID_SUCCESS, article } }
-    function failure(error) { return { type: articleConstants.GET_BY_ID_FAILURE, error } }
 }
 
 function getById(id) {
