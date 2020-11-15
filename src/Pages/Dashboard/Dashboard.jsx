@@ -4,6 +4,7 @@ import { Switch, Link, Route, useParams, useRouteMatch} from 'react-router-dom';
 //Routes
 import {CreateCourse, EditCourse, ManageCourses} from "./CourseDashboard";
 import {CreateCategoryPage, ManageCategoriesPage} from "./CategoryDashboard";
+import {CreateArticle} from "./ArticleDashboard";
 
 // Routeur Dashboard
 function DashboardRouter() {
@@ -19,6 +20,8 @@ function DashboardRouter() {
 
             <Route exact path={`${path}/category/create`} component={CreateCategoryPage} />
             <Route exact path={`${path}/category/manage`} component={ManageCategoriesPage} />
+
+            <Route exact path={`${path}/article/create`} component={CreateArticle} />
         </Switch>
     );
 }

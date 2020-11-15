@@ -66,7 +66,7 @@ function postArticle(article) {
     return dispatch => {
         dispatch(request(article));
 
-        articleService.postarticle(article)
+        articleService.postArticle(article)
             .then(
                 article => {
                     dispatch(success(article));
@@ -79,9 +79,9 @@ function postArticle(article) {
             );
     };
 
-    function request(article) { return { type: articleConstants.POST_article_REQUEST, article } }
-    function success(article) { return { type: articleConstants.POST_article_SUCCESS, article } }
-    function failure(error) { return { type: articleConstants.POST_article_FAILURE, error } }
+    function request(article) { return { type: articleConstants.POST_ARTICLE_REQUEST, article } }
+    function success(article) { return { type: articleConstants.POST_ARTICLE_SUCCESS, article } }
+    function failure(error) { return { type: articleConstants.POST_ARTICLE_FAILURE, error } }
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript

@@ -4,7 +4,6 @@ import { authHeader } from '../_helpers';
 export const articleService = {
     getAll,
     getById,
-    getBySlug,
     postArticle,
     update,
     delete: _delete
@@ -16,16 +15,7 @@ function getAll() {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/courses`, requestOptions).then(handleResponse);
-}
-
-function getBySlug(slug) {
-    const requestOptions = {
-        method: 'GET',
-        headers: authHeader()
-    };
-
-    return fetch(`${config.apiUrl}/courses/${slug}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/articles`, requestOptions).then(handleResponse);
 }
 
 function getById(id) {
@@ -34,30 +24,30 @@ function getById(id) {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/courses/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/articles/${id}`, requestOptions).then(handleResponse);
 }
 
-function postArticle(course) {
+function postArticle(article) {
 
     const headersVar = Object.assign({ 'Content-Type': 'application/json' }, authHeader());
 
     const requestOptions = {
         method: 'POST',
         headers: headersVar,
-        body: JSON.stringify(course)
+        body: JSON.stringify(article)
     };
 
-    return fetch(`${config.apiUrl}/courses`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/articles`, requestOptions).then(handleResponse);
 }
 
-function update(user) {
+function update(article) {
     const requestOptions = {
         method: 'PUT',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
+        body: JSON.stringify(article)
     };
 
-    return fetch(`${config.apiUrl}/courses/${user.id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/articles/${user.id}`, requestOptions).then(handleResponse);
 }
 
 function _delete(id) {
@@ -66,7 +56,7 @@ function _delete(id) {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/courses/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/articles/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
@@ -74,9 +64,7 @@ function handleResponse(response) {
         const data = text && JSON.parse(text);
         if (!response.ok) {
             if (response.status === 401) {
-                // auto logout if 401 response returned from api
-                logout();
-                location.reload(true);
+                console.log("Not authorized");
             }
 
             const error = (data && data.message) || response.statusText;
