@@ -74,7 +74,7 @@ function CreateCourse() {
 
                         <div className="form-group">
                             <label>Catégorie du cours</label>
-                            <select className={'form-control' + (submitted && !course.id_cat ? ' is-invalid' : '')} id="selectCourseId" name="id_cat" defaultValue={"none"} onChange={handleChangeSelect}>
+                            <select className={'form-control' + (submitted && !user.id_classe ? ' is-invalid' : '')} id="selectCourseId" name="id_cat" defaultValue={"none"} onChange={handleChangeSelect}>
                                 <option value="none" disabled hidden></option>
                                 {categories.items && categories.items.map((categorie, index) =>
                                     <option key={categorie.id_cat} value={categorie.id_cat+''}>{categorie.title}</option>
@@ -111,7 +111,6 @@ function EditCourse() {
 
     const user = useSelector(state => state.authentication.user);
     const courses = useSelector(state => state.courses);
-    const categories = useSelector(state => state.categories);
     const dispatch = useDispatch();
     let { courseId } = useParams();
 
@@ -126,7 +125,6 @@ function EditCourse() {
             setCourse(data.course);
             setCourseDescription(data.course.description);
         });
-        dispatch(categoryActions.getAll());
     }, []);
 
     function handleChange(e) {
@@ -137,18 +135,13 @@ function EditCourse() {
         console.log(course);
     }
 
-    function handleChangeSelect(e) {
-        const { name, value } = e.target;
-        course.id_cat = value;
-    }
-
     function handleSubmit(e) {
         e.preventDefault();
         course.description = quillDescription;
 
         setSubmitted(true);
         if (course.title && course.description && course.author_id && course.published && course.id_cat) {
-            dispatch(courseActions.putCourse(course));
+            dispatch(courseActions.postCourse(course));
         }
     }
 
@@ -178,15 +171,12 @@ function EditCourse() {
                         <br/>
 
                         <div className="form-group">
-                            <label>Catégorie du cours</label>
-                            <select className={'form-control' + (submitted && !course.id_cat ? ' is-invalid' : '')} id="selectCourseId" name="id_cat" defaultValue={course.id_cat} onChange={handleChangeSelect}>
-                                <option value="none" disabled hidden></option>
-                                {categories.items && categories.items.map((categorie, index) =>
-                                    <option key={categorie.id_cat} value={categorie.id_cat+''}>{categorie.title}</option>
-                                )}
-                            </select>
+                            <label>Catégorie</label>
+                            <input type="text" name="id_cat" disabled={true} value={course.id_cat} onChange={handleChange}
+                                   className={'form-control' + (submitted && !course.id_cat ? ' is-invalid' : '')}
+                                   placeholder="Titre du cours"/>
                             {submitted && !course.id_cat &&
-                            <div className="invalid-feedback">Merci de préciser la catégorie</div>
+                            <div className="invalid-feedback">La catégorie du cours est requise</div>
                             }
                         </div>
 
