@@ -4,6 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 import {categoryActions, courseActions} from "../../_actions";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useParams} from "react-router-dom";
+import {history} from "../../_helpers";
 
 function CreateCourse() {
 
@@ -98,7 +99,7 @@ function CreateCourse() {
                                 {courseCreation && <span className="spinner-border spinner-border-sm mr-1"></span>}
                                 Valider
                             </button>
-                            <Link to="/dashboard" className="btn btn-link">Annuler</Link>
+                            <button className="btn btn-link" onClick={history.goBack}>Annuler</button>
                         </div>
                     </form>
                 </div>
@@ -145,7 +146,7 @@ function EditCourse() {
     function handleSubmit(e) {
         e.preventDefault();
         course.description = quillDescription;
-
+        course.author_id = course.author_id+"";
         setSubmitted(true);
         if (course.title && course.description && course.author_id && course.published && course.id_cat) {
             dispatch(courseActions.putCourse(course));
@@ -179,12 +180,14 @@ function EditCourse() {
 
                         <div className="form-group">
                             <label>Catégorie du cours</label>
-                            <select className={'form-control' + (submitted && !course.id_cat ? ' is-invalid' : '')} id="selectCourseId" name="id_cat" defaultValue={course.id_cat} onChange={handleChangeSelect}>
-                                <option value="none" disabled hidden></option>
-                                {categories.items && categories.items.map((categorie, index) =>
-                                    <option key={categorie.id_cat} value={categorie.id_cat+''}>{categorie.title}</option>
-                                )}
-                            </select>
+                            {categories.items &&
+                                <select className={'form-control' + (submitted && !course.id_cat ? ' is-invalid' : '')} id="selectCourseId" name="id_cat" defaultValue={course.id_cat+""} onChange={handleChangeSelect}>
+                                    <option value="none" disabled hidden></option>
+                                    {categories.items.map((categorie, index) =>
+                                        <option key={categorie.id_cat} value={categorie.id_cat}>{categorie.title}</option>
+                                    )}
+                                </select>
+                            }
                             {submitted && !course.id_cat &&
                             <div className="invalid-feedback">Merci de préciser la catégorie</div>
                             }
@@ -215,7 +218,7 @@ function EditCourse() {
                             <button className="btn btn-primary">
                                 Valider
                             </button>
-                            <Link to="/dashboard/course/manage" className="btn btn-link">Annuler</Link>
+                            <button className="btn btn-link" onClick={history.goBack}>Annuler</button>
                         </div>
                     </form>
                     }
@@ -270,6 +273,7 @@ function ManageCourses(){
                     </table>
                     }
                     <Link to={{pathname: "/dashboard/course/create"}} className="btn btn-primary">Créer un cours</Link>
+                    <button className="btn btn-link" onClick={history.goBack}>Annuler</button>
                 </div>
             </div>
         </div>

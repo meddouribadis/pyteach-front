@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {categoryActions, userActions} from "../../_actions";
 import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
+import {history} from "../../_helpers";
 
 function CreateCategoryPage() {
 
@@ -66,7 +67,7 @@ function CreateCategoryPage() {
                                 {categoryCreation && <span className="spinner-border spinner-border-sm mr-1"></span>}
                                 Valider
                             </button>
-                            <Link to="/dashboard" className="btn btn-link">Annuler</Link>
+                            <button className="btn btn-link" onClick={history.goBack}>Annuler</button>
                         </div>
                     </form>
                 </div>
@@ -117,6 +118,8 @@ function ManageCategoriesPage() {
                         </tbody>
                     </table>
                     }
+                    <Link to={{pathname: "/dashboard/category/create"}} className="btn btn-primary">Ajouter</Link>
+                    <button className="btn btn-link" onClick={history.goBack}>Annuler</button>
                 </div>
             </div>
         </div>

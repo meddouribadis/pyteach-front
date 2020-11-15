@@ -16,8 +16,9 @@ function DashboardRouter() {
             <Route exact path={`${path}/course/create`} component={CreateCourse} />
             <Route exact path={`${path}/course/manage`} component={ManageCourses} />
             <Route path={`${path}/course/edit/:courseId`} component={EditCourse} />
-            <Route exact path={`${path}/create-category`} component={CreateCategoryPage} />
-            <Route exact path={`${path}/manage-categories`} component={ManageCategoriesPage} />
+
+            <Route exact path={`${path}/category/create`} component={CreateCategoryPage} />
+            <Route exact path={`${path}/category/manage`} component={ManageCategoriesPage} />
         </Switch>
     );
 }
@@ -34,8 +35,8 @@ function DashboardHome() {
                     <p>Vous pouvez réalisez les actions suivantes :</p>
                     <Link to={{pathname: "/dashboard/course/create"}} className="btn btn-link">Créer un cours</Link>
                     <Link to={{pathname: "/dashboard/course/manage"}} className="btn btn-link">Gérer les cours</Link>
-                    <Link to={{pathname: "/dashboard/create-category"}} className="btn btn-link">Créer une catégorie</Link>
-                    <Link to={{pathname: "/dashboard/manage-categories"}} className="btn btn-link">Gérer les catégories</Link>
+                    <Link to={{pathname: "/dashboard/category/create"}} className="btn btn-link">Créer une catégorie</Link>
+                    <Link to={{pathname: "/dashboard/category/manage"}} className="btn btn-link">Gérer les catégories</Link>
                 </div>
             </div>
         </div>

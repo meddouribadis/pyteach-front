@@ -57,7 +57,7 @@ function update(course) {
         body: JSON.stringify(course)
     };
 
-    return fetch(`${config.apiUrl}/courses/${course.id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/courses/${course.id_course}`, requestOptions).then(handleResponse);
 }
 
 function _delete(id) {

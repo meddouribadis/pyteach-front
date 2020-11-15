@@ -93,7 +93,7 @@ function putCourse(course) {
             .then(
                 course => {
                     dispatch(success(course));
-                    dispatch(alertActions.success('Cours mise à jour'));
+                    dispatch(alertActions.success('Cours mis à jour'));
                 },
                 error => {
                     dispatch(failure(error.toString()));
