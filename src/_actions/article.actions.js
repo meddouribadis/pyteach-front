@@ -7,6 +7,7 @@ export const articleActions = {
     getAll,
     getById,
     postArticle,
+    putArticle,
     delete: _delete
 };
 
@@ -65,6 +66,28 @@ function postArticle(article) {
     function request(article) { return { type: articleConstants.POST_ARTICLE_REQUEST, article } }
     function success(article) { return { type: articleConstants.POST_ARTICLE_SUCCESS, article } }
     function failure(error) { return { type: articleConstants.POST_ARTICLE_FAILURE, error } }
+}
+
+function putArticle(article) {
+    return dispatch => {
+        dispatch(request(article));
+
+        articleService.update(article)
+            .then(
+                article => {
+                    dispatch(success(article));
+                    dispatch(alertActions.success('Article mis à jour'));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(article) { return { type: articleConstants.PUT_ARTICLE_REQUEST, article } }
+    function success(article) { return { type: articleConstants.PUT_ARTICLE_SUCCESS, article } }
+    function failure(error) { return { type: articleConstants.PUT_ARTICLE_FAILURE, error } }
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript

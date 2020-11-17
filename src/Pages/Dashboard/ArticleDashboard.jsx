@@ -48,10 +48,8 @@ function CreateArticle() {
     function handleSubmit(e) {
         e.preventDefault();
         article.body = quillDescription;
-        console.log(article)
         setSubmitted(true);
         if (article.title && article.description && article.id_course && article.position && article.position && article.body) {
-            console.log("Enteringf data");
             dispatch(articleActions.postArticle(article));
         }
     }
@@ -161,9 +159,11 @@ function EditArticle() {
     function handleSubmit(e) {
         e.preventDefault();
         article.body = quillDescription;
+        if(article.imageUrl === null) delete article.imageUrl;
+        if(article.videoUrl === null) delete article.videoUrl;
         setSubmitted(true);
         if (article.title && article.description && article.id_course && article.position && article.position && article.body) {
-            dispatch(articleActions.postArticle(article));
+            dispatch(articleActions.putArticle(article));
         }
     }
 

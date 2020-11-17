@@ -47,7 +47,7 @@ function update(article) {
         body: JSON.stringify(article)
     };
 
-    return fetch(`${config.apiUrl}/articles/${user.id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/articles/${article.id_article}`, requestOptions).then(handleResponse);
 }
 
 function _delete(id) {
