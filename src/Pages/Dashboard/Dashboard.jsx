@@ -21,7 +21,6 @@ function DashboardRouter() {
             <Route exact path={`${path}/category/create`} component={CreateCategoryPage} />
             <Route exact path={`${path}/category/manage`} component={ManageCategoriesPage} />
 
-            <Route exact path={`${path}/article/create`} component={CreateArticle} />
             <Route exact path={`${path}/article/create/:courseId`} component={CreateArticle} />
             <Route exact path={`${path}/article/edit/:articleId`} component={EditArticle} />
         </Switch>

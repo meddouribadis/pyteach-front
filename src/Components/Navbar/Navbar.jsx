@@ -6,6 +6,14 @@ function Navbar() {
 
     const user = useSelector(state => state.authentication.user);
 
+    function TeacherLinks(){
+        return (
+            <Fragment>
+                <a className="py-2 d-none d-md-inline-block" href="/dashboard">Tableau de bord</a>
+            </Fragment>
+        );
+    }
+
     function UserInfo(){
         if (user) {
             return (
@@ -40,6 +48,9 @@ function Navbar() {
 
                 <a className="top-link py-2 d-none d-md-inline-block" href="/">Accueil</a>
                 <a className="top-link py-2 d-none d-md-inline-block" href="#">Information</a>
+                {user && user.role === 'TEACHER' &&
+                <TeacherLinks/>
+                }
                 <UserInfo/>
             </div>
         </nav>

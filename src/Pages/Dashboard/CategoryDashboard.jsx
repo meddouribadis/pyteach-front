@@ -3,6 +3,13 @@ import {categoryActions, userActions} from "../../_actions";
 import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import {history} from "../../_helpers";
+import BootstrapTable from 'react-bootstrap-table-next';
+import paginationFactory, { PaginationProvider } from 'react-bootstrap-table2-paginator';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+
+import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+import 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css';
 
 function CreateCategoryPage() {
 
@@ -83,9 +90,44 @@ function ManageCategoriesPage() {
     const categories = useSelector(state => state.categories);
     const dispatch = useDispatch();
 
+    // Table
+    const columns = [
+        {
+            dataField: 'id_cat',
+            text: '#',
+            sort: true
+        }, {
+            dataField: 'title',
+            text: 'Titre',
+            sort: true
+        }, {
+            dataField: 'description',
+            text: 'Description',
+            sort: false
+        }, {
+            text: "Action",
+            dataField: "",
+            formatter: GetActionFormat,
+        }
+    ];
+    const { SearchBar } = Search;
+
     useEffect(() => {
         dispatch(categoryActions.getAll());
     }, []);
+
+    function GetActionFormat(cell, row) {
+        return (
+            <div>
+                <Link to={{pathname: `/dashboard/category/edit/${row.id_cat}`}} className="btn btn-outline-primary btn-sm ts-buttom" size="sm">
+                    Modifier
+                </Link>
+                <Link to={{pathname: `/dashboard/category/edit/${row.id}`}} className="btn btn-outline-danger btn-sm ml-2 ts-buttom" size="sm">
+                    Supprimer
+                </Link>
+            </div>
+        );
+    }
 
     return (
         <div className="container">
@@ -96,27 +138,26 @@ function ManageCategoriesPage() {
                     {categories.loading && <em>Loading catégories...</em>}
                     {categories.error && <span className="text-danger">ERROR: {categories.error}</span>}
                     {categories.items &&
-                    <table className="table">
-                        <thead className={"thead-dark"}>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Titre</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        {categories.items.map((category, index) =>
-                            <tr>
-                                <th scope="row">{category.id_cat}</th>
-                                <td>{category.title}</td>
-                                <td>{category.description}</td>
-                                <td><Link to={{pathname: "/dashboard/manage-categories"}} className="btn btn-primary">Modifier</Link></td>
-                            </tr>
-                        )}
-                        </tbody>
-                    </table>
+                        <div className="list_categories">
+                        <ToolkitProvider
+                            keyField="id"
+                            data={ categories.items }
+                            columns={ columns }
+                            search
+                        >
+                            {
+                                props => (
+                                    <div>
+                                        <SearchBar { ...props.searchProps } />
+                                        <BootstrapTable
+                                            { ...props.baseProps }
+                                            pagination={ paginationFactory() }
+                                        />
+                                    </div>
+                                )
+                            }
+                        </ToolkitProvider>
+                    </div>
                     }
                     <Link to={{pathname: "/dashboard/category/create"}} className="btn btn-primary">Ajouter</Link>
                     <button className="btn btn-link" onClick={history.goBack}>Annuler</button>
