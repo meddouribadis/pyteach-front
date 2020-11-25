@@ -5,9 +5,9 @@ import {history} from '../_helpers';
 
 export const articleActions = {
     getAll,
-    getBySlug,
     getById,
     postArticle,
+    putArticle,
     delete: _delete
 };
 
@@ -25,22 +25,6 @@ function getAll() {
     function request() { return { type: articleConstants.GET_ALL_REQUEST } }
     function success(articles) { return { type: articleConstants.GET_ALL_SUCCESS, articles } }
     function failure(error) { return { type: articleConstants.GET_ALL_FAILURE, error } }
-}
-
-function getBySlug(slug) {
-    return dispatch => {
-        dispatch(request());
-
-        articleService.getById(slug)
-            .then(
-                article => dispatch(success(article)),
-                error => dispatch(failure(error.toString()))
-            );
-    };
-
-    function request() { return { type: articleConstants.GET_BY_ID_REQUEST } }
-    function success(article) { return { type: articleConstants.GET_BY_ID_SUCCESS, article } }
-    function failure(error) { return { type: articleConstants.GET_BY_ID_FAILURE, error } }
 }
 
 function getById(id) {
@@ -66,7 +50,7 @@ function postArticle(article) {
     return dispatch => {
         dispatch(request(article));
 
-        articleService.postarticle(article)
+        articleService.postArticle(article)
             .then(
                 article => {
                     dispatch(success(article));
@@ -79,9 +63,31 @@ function postArticle(article) {
             );
     };
 
-    function request(article) { return { type: articleConstants.POST_article_REQUEST, article } }
-    function success(article) { return { type: articleConstants.POST_article_SUCCESS, article } }
-    function failure(error) { return { type: articleConstants.POST_article_FAILURE, error } }
+    function request(article) { return { type: articleConstants.POST_ARTICLE_REQUEST, article } }
+    function success(article) { return { type: articleConstants.POST_ARTICLE_SUCCESS, article } }
+    function failure(error) { return { type: articleConstants.POST_ARTICLE_FAILURE, error } }
+}
+
+function putArticle(article) {
+    return dispatch => {
+        dispatch(request(article));
+
+        articleService.update(article)
+            .then(
+                article => {
+                    dispatch(success(article));
+                    dispatch(alertActions.success('Article mis à jour'));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(article) { return { type: articleConstants.PUT_ARTICLE_REQUEST, article } }
+    function success(article) { return { type: articleConstants.PUT_ARTICLE_SUCCESS, article } }
+    function failure(error) { return { type: articleConstants.PUT_ARTICLE_FAILURE, error } }
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript

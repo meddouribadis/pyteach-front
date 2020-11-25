@@ -11,13 +11,14 @@ import { HomePage } from '../../Pages/Home';
 import { LoginPage } from '../../Pages/Login';
 import { RegisterPage } from '../../Pages/Register';
 import { CourseRouter } from "../../Pages/Course/Course";
+import { ListeCoursePage } from "../../Pages/Course/ListeCourse";
 import { Exercice } from '../../Pages/Exercice';
 import { DashboardRouter } from '../../Pages/Dashboard';
-import {CourseSuiviRouter, ListeCoursePage} from "../../Pages/Course/CourseSuivi";
+import { CourseSuiviRouter } from "../../Pages/Course/CourseSuivi";
 
 // Components
 import { Navbar } from '../Navbar';
-import { FooterBar } from '../Footer';
+import { Footer } from '../Footer';
 
 import './App.css';
 
@@ -41,7 +42,7 @@ function App() {
                 }
                 <Router history={history}>
                     <Switch>
-                        <PrivateRoute exact path="/" component={HomePage} />
+                        <PrivateRoute exact path="/" component={ListeCoursePage} />
                         <Route path="/login" component={LoginPage} />
                         <Route path="/register" component={RegisterPage} />
                         <Route path="/cours" component={CourseRouter}/>
@@ -51,7 +52,7 @@ function App() {
                         <SecuredRoute path="/dashboard" component={DashboardRouter} />
                     </Switch>
                 </Router>
-            <FooterBar />
+            <Footer />
         </div>
     );
 }

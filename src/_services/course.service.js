@@ -50,14 +50,14 @@ function postCourse(course) {
     return fetch(`${config.apiUrl}/courses`, requestOptions).then(handleResponse);
 }
 
-function update(user) {
+function update(course) {
     const requestOptions = {
         method: 'PUT',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
+        body: JSON.stringify(course)
     };
 
-    return fetch(`${config.apiUrl}/courses/${user.id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/courses/${course.id_course}`, requestOptions).then(handleResponse);
 }
 
 function _delete(id) {
@@ -73,12 +73,6 @@ function handleResponse(response) {
     return response.text().then(text => {
         const data = text && JSON.parse(text);
         if (!response.ok) {
-            if (response.status === 401) {
-                // auto logout if 401 response returned from api
-                logout();
-                location.reload(true);
-            }
-
             const error = (data && data.message) || response.statusText;
             return Promise.reject(error);
         }

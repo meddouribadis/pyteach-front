@@ -8,6 +8,7 @@ export const courseActions = {
     getBySlug,
     getById,
     postCourse,
+    putCourse,
     delete: _delete
 };
 
@@ -84,12 +85,33 @@ function postCourse(course) {
     function failure(error) { return { type: courseConstants.POST_COURSE_FAILURE, error } }
 }
 
-// prefixed function name with underscore because delete is a reserved word in javascript
+function putCourse(course) {
+    return dispatch => {
+        dispatch(request(course));
+
+        courseService.update(course)
+            .then(
+                course => {
+                    dispatch(success(course));
+                    dispatch(alertActions.success('Cours mis à jour'));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(course) { return { type: courseConstants.PUT_COURSE_REQUEST, course } }
+    function success(course) { return { type: courseConstants.PUT_COURSE_SUCCESS, course } }
+    function failure(error) { return { type: courseConstants.PUT_COURSE_FAILURE, error } }
+}
+
 function _delete(id) {
     return dispatch => {
         dispatch(request(id));
 
-        userService.delete(id)
+        courseService.delete(id)
             .then(
                 course => dispatch(success(id)),
                 error => dispatch(failure(id, error.toString()))
