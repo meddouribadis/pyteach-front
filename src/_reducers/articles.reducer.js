@@ -28,13 +28,24 @@ export function articles(state = {}, action) {
                 error: action.error
             };
 
-        case articleConstants.POST_COURSE_REQUEST:
+        case articleConstants.PUT_ARTICLE_SUCCESS:
+            return {
+                articleUpdate: true
+            };
+        case articleConstants.PUT_ARTICLE_SUCCESS:
+            return {};
+        case articleConstants.PUT_ARTICLE_FAILURE:
+            return {
+                error: action.error
+            };
+
+        case articleConstants.POST_ARTICLE_REQUEST:
             return {
                 articleCreation: true
             };
-        case articleConstants.POST_COURSE_SUCCESS:
+        case articleConstants.POST_ARTICLE_SUCCESS:
             return {};
-        case articleConstants.POST_COURSE_FAILURE:
+        case articleConstants.POST_ARTICLE_FAILURE:
             return {
                 error: action.error
             };

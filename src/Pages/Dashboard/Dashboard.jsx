@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { Switch, Link, Route, useParams, useRouteMatch} from 'react-router-dom';
+import { Switch, Link, Route, useParams, useRouteMatch, Redirect} from 'react-router-dom';
 import './Dashboard.css';
 
 //Routes
 import {CreateCourse, EditCourse, ManageCourses} from "./CourseDashboard";
 import {CreateCategoryPage, ManageCategoriesPage} from "./CategoryDashboard";
-import {CreateArticle, EditArticle} from "./ArticleDashboard";
+import {CreateArticle, EditArticle, ManageArticles} from "./ArticleDashboard";
 
 // Routeur Dashboard
 function DashboardRouter() {
@@ -24,6 +24,9 @@ function DashboardRouter() {
 
             <Route exact path={`${path}/article/create/:courseId`} component={CreateArticle} />
             <Route exact path={`${path}/article/edit/:articleId`} component={EditArticle} />
+            <Route exact path={`${path}/article/manage`} component={ManageArticles} />
+
+            <Redirect from="*" to={`${path}`} />
         </Switch>
     );
 }

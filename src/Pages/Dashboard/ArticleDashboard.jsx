@@ -1,9 +1,16 @@
 import React, {useEffect, useState} from "react";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import {categoryActions, courseActions, articleActions} from "../../_actions";
+import {courseActions, articleActions} from "../../_actions";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useParams} from "react-router-dom";
+import BootstrapTable from 'react-bootstrap-table-next';
+import paginationFactory, { PaginationProvider } from 'react-bootstrap-table2-paginator';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+
+import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+import 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css';
 
 function CreateArticle() {
 
@@ -129,6 +136,7 @@ function EditArticle() {
     const user = useSelector(state => state.authentication.user);
     const courses = useSelector(state => state.courses);
     const articles = useSelector(state => state.articles);
+    const articleUpdate = useSelector(state => state.articles.articleUpdate);
     const dispatch = useDispatch();
     let { articleId } = useParams();
 
@@ -224,7 +232,7 @@ function EditArticle() {
                         <br/>
                         <div className="form-group">
                             <button className="btn btn-primary">
-                                {submitted && <span className="spinner-border spinner-border-sm mr-1"></span>}
+                                {articleUpdate && <span className="spinner-border spinner-border-sm mr-1"></span>}
                                 Valider
                             </button>
                             <Link to="/dashboard" className="btn btn-link">Annuler</Link>
@@ -237,5 +245,89 @@ function EditArticle() {
     );
 }
 
+function ManageArticles(){
+    const articles = useSelector(state => state.articles);
+    const dispatch = useDispatch();
 
-export {CreateArticle, EditArticle};
+    // Table
+    const columns = [
+        {
+            dataField: 'id_article',
+            text: '#',
+            sort: true
+        }, {
+            dataField: 'title',
+            text: 'Titre',
+            sort: true
+        }, {
+            dataField: 'description',
+            text: 'Description',
+            sort: false
+        }, {
+            dataField: 'id_course',
+            text: 'Cours',
+            sort: true
+        }, {
+            text: "Action",
+            dataField: "",
+            formatter: GetActionFormat,
+        }
+    ];
+    const { SearchBar } = Search;
+
+    useEffect(() => {
+        dispatch(articleActions.getAll());
+    }, []);
+
+    function GetActionFormat(cell, row) {
+        return (
+            <div>
+                <Link to={{pathname: `/dashboard/article/edit/${row.id_article}`}} className="btn btn-outline-primary btn-sm ts-buttom" size="sm">
+                    Modifier
+                </Link>
+                <Link to={{pathname: `/dashboard/article/edit/${row.id_course}`}} className="btn btn-outline-danger btn-sm ml-2 ts-buttom" size="sm">
+                    Supprimer
+                </Link>
+            </div>
+        );
+    }
+
+    return (
+        <div className="container">
+            <div className="row">
+                <div className="col-12">
+                    <h1>Articles</h1>
+                </div>
+
+                <div className="col-12">
+                    {articles.loading && <em>Chargement...</em>}
+                    {articles.error && <span className="text-danger">ERREUR : {courses.error}</span>}
+                    {articles.items &&
+                        <div className="list_articles">
+                        <ToolkitProvider
+                            keyField="id"
+                            data={articles.items}
+                            columns={columns}
+                            search
+                        >
+                            {
+                                props => (
+                                    <div>
+                                        <SearchBar { ...props.searchProps } />
+                                        <BootstrapTable
+                                            { ...props.baseProps }
+                                            pagination={ paginationFactory() }
+                                        />
+                                    </div>
+                                )
+                            }
+                        </ToolkitProvider>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export {CreateArticle, EditArticle, ManageArticles};
