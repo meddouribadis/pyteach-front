@@ -4,6 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 import {courseActions, articleActions} from "../../_actions";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useParams} from "react-router-dom";
+import {history} from "../../_helpers";
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory, { PaginationProvider } from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
@@ -11,6 +12,7 @@ import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css';
+
 
 function CreateArticle() {
 
@@ -121,7 +123,7 @@ function CreateArticle() {
                                     {articleCreation && <span className="spinner-border spinner-border-sm mr-1"></span>}
                                     Valider
                                 </button>
-                                <Link to="/dashboard" className="btn btn-link">Annuler</Link>
+                                <button type={"button"} className="btn btn-link" onClick={history.goBack}>Annuler</button>
                             </div>
                         </form>
                     }
@@ -235,7 +237,7 @@ function EditArticle() {
                                 {articleUpdate && <span className="spinner-border spinner-border-sm mr-1"></span>}
                                 Valider
                             </button>
-                            <Link to="/dashboard" className="btn btn-link">Annuler</Link>
+                            <button type={"button"} className="btn btn-link" onClick={history.goBack}>Annuler</button>
                         </div>
                     </form>
                     }
@@ -301,7 +303,7 @@ function ManageArticles(){
 
                 <div className="col-12">
                     {articles.loading && <em>Chargement...</em>}
-                    {articles.error && <span className="text-danger">ERREUR : {courses.error}</span>}
+                    {articles.error && <span className="text-danger">ERREUR : {articles.error}</span>}
                     {articles.items &&
                         <div className="list_articles">
                         <ToolkitProvider

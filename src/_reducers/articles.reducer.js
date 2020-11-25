@@ -28,7 +28,7 @@ export function articles(state = {}, action) {
                 error: action.error
             };
 
-        case articleConstants.PUT_ARTICLE_SUCCESS:
+        case articleConstants.PUT_ARTICLE_REQUEST:
             return {
                 articleUpdate: true
             };
