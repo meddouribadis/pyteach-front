@@ -17,7 +17,7 @@ import {CourseSuiviRouter, ListeCoursePage} from "../../Pages/Course/CourseSuivi
 
 // Components
 import { Navbar } from '../Navbar';
-import { FooterBar } from '../Footer';
+import { Footer } from '../Footer';
 
 import './App.css';
 
@@ -51,7 +51,7 @@ function App() {
                         <SecuredRoute path="/dashboard" component={DashboardRouter} />
                     </Switch>
                 </Router>
-            <FooterBar />
+            <Footer />
         </div>
     );
 }
