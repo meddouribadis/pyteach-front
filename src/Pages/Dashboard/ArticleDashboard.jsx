@@ -290,7 +290,6 @@ function ManageArticles(){
     function confirmDelete(){
         if(selectedArticle) {
             dispatch(articleActions.delete(selectedArticle)).then((data, err) => {
-                console.log(err);
                 dispatch(articleActions.getAll());
             });
         }
@@ -302,7 +301,7 @@ function ManageArticles(){
                 <Link to={{pathname: `/dashboard/article/edit/${row.id_article}`}} className="btn btn-outline-primary btn-sm ts-buttom" size="sm">
                     Modifier
                 </Link>
-                <button type="button" className="btn btn-outline-danger btn-sm ml-2 ts-buttom" size="sm" data-toggle="modal" data-target="#deleteArticleModal" data-whatever="@mdo" onClick={handleDeleteButton(row.id_article)}>
+                <button type="button" className="btn btn-outline-danger btn-sm ml-2 ts-buttom" size="sm" data-toggle="modal" data-target="#deleteArticleModal" onClick={handleDeleteButton(row.id_article)}>
                     Supprimer
                 </button>
             </div>

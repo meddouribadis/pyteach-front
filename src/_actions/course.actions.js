@@ -109,13 +109,15 @@ function putCourse(course) {
 
 function _delete(id) {
     return dispatch => {
-        dispatch(request(id));
+        return new Promise((resolve, reject) => {
+            dispatch(request(id));
 
-        courseService.delete(id)
-            .then(
-                course => dispatch(success(id)),
-                error => dispatch(failure(id, error.toString()))
-            );
+            courseService.delete(id)
+                .then(
+                    id => resolve(dispatch(success(id))),
+                    error => reject(dispatch(failure(id, error.toString())))
+                );
+        });
     };
 
     function request(id) { return { type: courseConstants.DELETE_REQUEST, id } }
