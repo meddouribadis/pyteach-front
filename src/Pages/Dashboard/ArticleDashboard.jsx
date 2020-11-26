@@ -1,17 +1,19 @@
 import React, {useEffect, useState} from "react";
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import {courseActions, articleActions} from "../../_actions";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useParams} from "react-router-dom";
 import {history} from "../../_helpers";
+import {DeleteModal} from "../../Components/Modal";
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory, { PaginationProvider } from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 
+import 'react-quill/dist/quill.snow.css';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css';
+
 
 function CreateArticle() {
 
@@ -249,6 +251,7 @@ function EditArticle() {
 function ManageArticles(){
     const articles = useSelector(state => state.articles);
     const dispatch = useDispatch();
+    const [selectedArticle, setSelectedArticle] = useState(null);
 
     // Table
     const columns = [
@@ -280,15 +283,28 @@ function ManageArticles(){
         dispatch(articleActions.getAll());
     }, []);
 
+    function handleDeleteButton(e){
+        setSelectedArticle(e)
+    }
+
+    function confirmDelete(){
+        if(selectedArticle) {
+            dispatch(articleActions.delete(selectedArticle)).then((data, err) => {
+                console.log(err);
+                dispatch(articleActions.getAll());
+            });
+        }
+    }
+
     function GetActionFormat(cell, row) {
         return (
             <div>
                 <Link to={{pathname: `/dashboard/article/edit/${row.id_article}`}} className="btn btn-outline-primary btn-sm ts-buttom" size="sm">
                     Modifier
                 </Link>
-                <Link to={{pathname: `/dashboard/article/edit/${row.id_course}`}} className="btn btn-outline-danger btn-sm ml-2 ts-buttom" size="sm">
+                <button type="button" className="btn btn-outline-danger btn-sm ml-2 ts-buttom" size="sm" data-toggle="modal" data-target="#deleteArticleModal" data-whatever="@mdo" onClick={handleDeleteButton(row.id_article)}>
                     Supprimer
-                </Link>
+                </button>
             </div>
         );
     }
@@ -327,6 +343,8 @@ function ManageArticles(){
                     }
                 </div>
             </div>
+
+            <DeleteModal idModal={"deleteArticleModal"} selectedArticle={selectedArticle} modalFunction={confirmDelete}/>
         </div>
     )
 }

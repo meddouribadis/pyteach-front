@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { Switch, Link, Route, useParams, useRouteMatch} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {articleActions, courseActions} from "../../_actions";
+import {articleActions} from "../../_actions";
 
 function ArticleRouter() {
-
     let { path, url } = useRouteMatch();
 
     return (
@@ -63,9 +62,7 @@ function ReadArticle() {
                     }
                 </div>
             }
-
         </div>
-
     );
 }
 
