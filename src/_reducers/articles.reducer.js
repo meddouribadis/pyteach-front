@@ -50,6 +50,17 @@ export function articles(state = {}, action) {
                 error: action.error
             };
 
+        case articleConstants.COMPLETE_ARTICLE_REQUEST:
+            return {
+                articleCompletion: true
+            };
+        case articleConstants.COMPLETE_ARTICLE_SUCCESS:
+            return {};
+        case articleConstants.COMPLETE_ARTICLE_FAILURE:
+            return {
+                error: action.error
+            };
+
         case articleConstants.DELETE_REQUEST:
             // add 'deleting:true' property to user being deleted
             return {

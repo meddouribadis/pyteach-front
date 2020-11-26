@@ -6,6 +6,7 @@ export const articleService = {
     getById,
     postArticle,
     update,
+    complete,
     delete: _delete
 };
 
@@ -48,6 +49,22 @@ function update(article) {
     };
 
     return fetch(`${config.apiUrl}/articles/${article.id_article}`, requestOptions).then(handleResponse);
+}
+
+function complete(articleId, userId) {
+
+    const headersVar = Object.assign({ 'Content-Type': 'application/json' }, authHeader());
+
+    const requestOptions = {
+        method: 'POST',
+        headers: headersVar,
+        body: JSON.stringify({
+            "id_article": articleId,
+            "id_user": userId
+        })
+    };
+
+    return fetch(`${config.apiUrl}/articles/complete`, requestOptions).then(handleResponse);
 }
 
 function _delete(id) {

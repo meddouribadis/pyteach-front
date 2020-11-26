@@ -25,6 +25,11 @@ function ReadArticle() {
         dispatch(articleActions.getById(articleId));
     }, []);
 
+    function handleCompleteArticle(e) {
+        e.preventDefault();
+        dispatch(articleActions.completeArticle(articles.currentArticle.id_article, user.id))
+    }
+
     return (
         <div className="container">
             <div className="row">
@@ -49,7 +54,7 @@ function ReadArticle() {
                     </div>
                     }
                     <div className="col read-article text-center">
-                        <button className="btn btn-primary btn-lg">J'ai terminé ce chapitre</button>
+                        <button className="btn btn-primary btn-lg" onClick={handleCompleteArticle}>J'ai terminé ce chapitre</button>
                     </div>
                     {articles.currentArticle.nextArticle &&
                         <div className="col read-article text-center">
