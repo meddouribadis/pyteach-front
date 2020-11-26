@@ -28,7 +28,7 @@ function ReadArticle() {
     return (
         <div className="container">
             <div className="row">
-                <div className="col read-article">
+                <div className="col-12 read-article">
                     {articles.loading && <em>Chargement...</em>}
                     {articles.error && <span className="text-danger">Erreur : {articles.error}</span>}
                     {articles.currentArticle &&
@@ -39,6 +39,11 @@ function ReadArticle() {
                         </div>
                     }
                 </div>
+                {articles.currentArticle &&
+                    <div className="col-12 read-article text-center">
+                        <button className="btn btn-primary btn-lg">J'ai terminé ce chapitre</button>
+                    </div>
+                }
             </div>
         </div>
 
