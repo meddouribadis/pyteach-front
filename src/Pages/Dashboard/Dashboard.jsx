@@ -4,7 +4,7 @@ import './Dashboard.css';
 
 //Routes
 import {CreateCourse, EditCourse, ManageCourses} from "./CourseDashboard";
-import {CreateCategoryPage, ManageCategoriesPage} from "./CategoryDashboard";
+import {CreateCategoryPage, EditCategory, ManageCategoriesPage} from "./CategoryDashboard";
 import {CreateArticle, EditArticle, ManageArticles} from "./ArticleDashboard";
 
 // Routeur Dashboard
@@ -20,6 +20,7 @@ function DashboardRouter() {
             <Route path={`${path}/course/edit/:courseId`} component={EditCourse} />
 
             <Route exact path={`${path}/category/create`} component={CreateCategoryPage} />
+            <Route exact path={`${path}/category/edit/:categoryId`} component={EditCategory} />
             <Route exact path={`${path}/category/manage`} component={ManageCategoriesPage} />
 
             <Route exact path={`${path}/article/create/:courseId`} component={CreateArticle} />

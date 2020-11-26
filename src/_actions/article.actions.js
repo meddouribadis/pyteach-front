@@ -8,6 +8,7 @@ export const articleActions = {
     getById,
     postArticle,
     putArticle,
+    completeArticle,
     delete: _delete
 };
 
@@ -88,6 +89,28 @@ function putArticle(article) {
     function request(article) { return { type: articleConstants.PUT_ARTICLE_REQUEST, article } }
     function success(article) { return { type: articleConstants.PUT_ARTICLE_SUCCESS, article } }
     function failure(error) { return { type: articleConstants.PUT_ARTICLE_FAILURE, error } }
+}
+
+function completeArticle(articleId, userId) {
+    return dispatch => {
+        dispatch(request(articleId));
+
+        articleService.complete(articleId, userId)
+            .then(
+                article => {
+                    dispatch(success(article));
+                    dispatch(alertActions.success('Article complété'));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(articleId) { return { type: articleConstants.COMPLETE_ARTICLE_REQUEST, articleId } }
+    function success(article) { return { type: articleConstants.COMPLETE_ARTICLE_SUCCESS, article } }
+    function failure(error) { return { type: articleConstants.COMPLETE_ARTICLE_FAILURE, error } }
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript

@@ -39,6 +39,17 @@ export function categories(state = {}, action) {
                 error: action.error
             };
 
+        case categoryConstants.PUT_CATEGORY_REQUEST:
+            return {
+                categoryUpdate: true
+            };
+        case categoryConstants.PUT_CATEGORY_SUCCESS:
+            return {};
+        case categoryConstants.PUT_CATEGORY_FAILURE:
+            return {
+                error: action.error
+            };
+
         case categoryConstants.DELETE_REQUEST:
             // add 'deleting:true' property to user being deleted
             return {

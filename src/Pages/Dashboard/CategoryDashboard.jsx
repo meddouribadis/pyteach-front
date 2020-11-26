@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {categoryActions, userActions} from "../../_actions";
 import {useDispatch, useSelector} from "react-redux";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {history} from "../../_helpers";
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory, { PaginationProvider } from 'react-bootstrap-table2-paginator';
@@ -74,9 +74,87 @@ function CreateCategoryPage() {
                                 {categoryCreation && <span className="spinner-border spinner-border-sm mr-1"></span>}
                                 Valider
                             </button>
-                            <button className="btn btn-link" onClick={history.goBack}>Annuler</button>
+                            <button type={"button"} className="btn btn-link" onClick={history.goBack}>Annuler</button>
                         </div>
                     </form>
+                </div>
+
+            </div>
+        </div>
+    );
+}
+
+function EditCategory() {
+
+    const user = useSelector(state => state.authentication.user);
+    const categories = useSelector(state => state.categories);
+    const dispatch = useDispatch();
+    let { categoryId } = useParams();
+
+    const [category, setCategory] = useState(null);
+    const [submitted, setSubmitted] = useState(false);
+
+    useEffect(() => {
+        dispatch(categoryActions.getById(categoryId)).then((data, err) => {
+            setCategory(data.category);
+        });
+    }, []);
+
+    function handleChange(e) {
+        const { name, value } = e.target;
+        setCategory(category => ({ ...category, [name]: value }));
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        setSubmitted(true);
+        if (category.title && category.description) {
+            dispatch(categoryActions.putCategory(category));
+        }
+    }
+
+    return (
+        <div className="container">
+            <div className="row">
+                <div className="col-12">
+                    <h1>Editer une catégorie</h1>
+                </div>
+
+                <div className="col-12">
+                    {categories.loading && <em>Chargement...</em>}
+                    {categories.error && <span className="text-danger">ERREUR: {categories.error}</span>}
+                    {category !== null &&
+                        <form name="form" onSubmit={handleSubmit}>
+
+                            <div className="form-group">
+                                <label>Titre de la catégorie :</label>
+                                <input type="text" name="title" value={category.title} onChange={handleChange}
+                                       className={'form-control' + (submitted && !category.title ? ' is-invalid' : '')}
+                                       placeholder="Titre de la catégorie"/>
+                                {submitted && !category.title &&
+                                <div className="invalid-feedback">Le titre de catégorie est requis</div>
+                                }
+                            </div>
+
+                            <div className="form-group">
+                                <label>Description de la catégorie :</label>
+                                <input type="text" name="description" value={category.description} onChange={handleChange}
+                                       className={'form-control' + (submitted && !category.description ? ' is-invalid' : '')}
+                                       placeholder="Description de la catégorie"/>
+                                {submitted && !category.description &&
+                                <div className="invalid-feedback">La description de la catégorie est requise</div>
+                                }
+                            </div>
+
+                            <div className="form-group">
+                                <button className="btn btn-primary">
+                                    {categories.categoryUpdate && <span className="spinner-border spinner-border-sm mr-1"></span>}
+                                    Valider
+                                </button>
+                                <button type={"button"} className="btn btn-link" onClick={history.goBack}>Annuler</button>
+                            </div>
+                        </form>
+                    }
                 </div>
 
             </div>
@@ -167,4 +245,4 @@ function ManageCategoriesPage() {
     );
 }
 
-export {CreateCategoryPage,ManageCategoriesPage};
+export {CreateCategoryPage,ManageCategoriesPage, EditCategory};
