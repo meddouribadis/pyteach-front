@@ -7,6 +7,7 @@ export const categoryActions = {
     getAll,
     getById,
     postCategory,
+    putCategory,
     delete: _delete
 };
 
@@ -28,13 +29,15 @@ function getAll() {
 
 function getById(id) {
     return dispatch => {
-        dispatch(request());
+        return new Promise((resolve, reject) => {
+            dispatch(request());
 
-        categoryService.getById(id)
-            .then(
-                category => dispatch(success(category)),
-                error => dispatch(failure(error.toString()))
-            );
+            categoryService.getById(id)
+                .then(
+                    category => resolve(dispatch(success(category))),
+                    error => reject(dispatch(failure(error.toString())))
+                );
+        });
     };
 
     function request() { return { type: categoryConstants.GETBYID_REQUEST } }
@@ -62,6 +65,28 @@ function postCategory(category) {
     function request(category) { return { type: categoryConstants.POST_CATEGORY_REQUEST, category } }
     function success(category) { return { type: categoryConstants.POST_CATEGORY_SUCCESS, category } }
     function failure(error) { return { type: categoryConstants.POST_CATEGORY_FAILURE, error } }
+}
+
+function putCategory(category) {
+    return dispatch => {
+        dispatch(request(category));
+
+        categoryService.update(category)
+            .then(
+                category => {
+                    dispatch(success(category));
+                    dispatch(alertActions.success('Catégorie mise à jour'));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(category) { return { type: categoryConstants.PUT_CATEGORY_REQUEST, category } }
+    function success(category) { return { type: categoryConstants.PUT_CATEGORY_SUCCESS, category } }
+    function failure(error) { return { type: categoryConstants.PUT_CATEGORY_FAILURE, error } }
 }
 
 function _delete(id) {

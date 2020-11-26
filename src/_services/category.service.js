@@ -44,7 +44,7 @@ function update(category) {
         body: JSON.stringify(category)
     };
 
-    return fetch(`${config.apiUrl}/categories/${category.id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/categories/${category.id_cat}`, requestOptions).then(handleResponse);
 }
 
 function _delete(id) {
