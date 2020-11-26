@@ -52,10 +52,13 @@ export function articles(state = {}, action) {
 
         case articleConstants.COMPLETE_ARTICLE_REQUEST:
             return {
+                ...state,
                 articleCompletion: true
             };
         case articleConstants.COMPLETE_ARTICLE_SUCCESS:
-            return {};
+            return Object.assign({}, state, {
+                completedArticle: action.article
+            });
         case articleConstants.COMPLETE_ARTICLE_FAILURE:
             return {
                 error: action.error
