@@ -106,7 +106,7 @@ function CreateCourse() {
                                 {courseCreation && <span className="spinner-border spinner-border-sm mr-1"></span>}
                                 Valider
                             </button>
-                            <button className="btn btn-link" onClick={history.goBack}>Annuler</button>
+                            <button type={"button"} className="btn btn-link" onClick={history.goBack}>Annuler</button>
                         </div>
                     </form>
                 </div>
@@ -225,7 +225,7 @@ function EditCourse() {
                             <button className="btn btn-primary">
                                 Valider
                             </button>
-                            <button className="btn btn-link" onClick={history.goBack}>Annuler</button>
+                            <button type={"button"} className="btn btn-link" onClick={history.goBack}>Annuler</button>
                         </div>
                     </form>
                     }
@@ -319,7 +319,7 @@ function ManageCourses(){
                     </div>
                     }
                     <Link to={{pathname: "/dashboard/course/create"}} className="btn btn-primary">Créer un cours</Link>
-                    <button className="btn btn-link" onClick={history.goBack}>Annuler</button>
+                    <button type={"button"} className="btn btn-link" onClick={history.goBack}>Annuler</button>
                 </div>
             </div>
         </div>

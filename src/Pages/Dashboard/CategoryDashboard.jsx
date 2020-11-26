@@ -74,7 +74,7 @@ function CreateCategoryPage() {
                                 {categoryCreation && <span className="spinner-border spinner-border-sm mr-1"></span>}
                                 Valider
                             </button>
-                            <button className="btn btn-link" onClick={history.goBack}>Annuler</button>
+                            <button type={"button"} className="btn btn-link" onClick={history.goBack}>Annuler</button>
                         </div>
                     </form>
                 </div>
