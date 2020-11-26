@@ -35,13 +35,14 @@ function displayCourseInfo(course){
         <div className="course">
             <h1>{course.title}</h1>
             <p className="blockquote-footer">Catégorie : {course.category.title} - Auteur : {course.User.firstName} {course.User.lastName}</p>
+            <hr/>
             <p className="body" dangerouslySetInnerHTML={{__html: course.description}}/>
             <h2>Le contenu de ce cours :</h2>
 
             <div className="list-group">
                 {course.exercices.map((exercice, index) => {
                     return ([
-                        <a href="#" className="list-group-item list-group-item-action">{exercice.title}</a>
+                        <a href={`/article/${exercice.id_article}`} className="list-group-item list-group-item-action">{exercice.title}</a>
                     ])
                 })
                 }
