@@ -39,12 +39,26 @@ function ReadArticle() {
                         </div>
                     }
                 </div>
-                {articles.currentArticle &&
-                    <div className="col-12 read-article text-center">
+            </div>
+
+            {articles.currentArticle &&
+                <div className="row">
+                    {articles.currentArticle.previousArticle &&
+                    <div className="col read-article text-center">
+                        <a href={`/article/${articles.currentArticle.previousArticle}`} className="btn btn-outline-success btn ts-buttom">Chapitre précedent</a>
+                    </div>
+                    }
+                    <div className="col read-article text-center">
                         <button className="btn btn-primary btn-lg">J'ai terminé ce chapitre</button>
                     </div>
-                }
-            </div>
+                    {articles.currentArticle.nextArticle &&
+                        <div className="col read-article text-center">
+                            <a href={`/article/${articles.currentArticle.nextArticle}`} className="btn btn-outline-success btn ts-buttom">Chapitre suivant</a>
+                        </div>
+                    }
+                </div>
+            }
+
         </div>
 
     );
