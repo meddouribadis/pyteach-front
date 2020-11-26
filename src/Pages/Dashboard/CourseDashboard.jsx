@@ -106,7 +106,7 @@ function CreateCourse() {
                                 {courseCreation && <span className="spinner-border spinner-border-sm mr-1"></span>}
                                 Valider
                             </button>
-                            <button className="btn btn-link" onClick={history.goBack}>Annuler</button>
+                            <button type={"button"} className="btn btn-link" onClick={history.goBack}>Annuler</button>
                         </div>
                     </form>
                 </div>
@@ -225,7 +225,7 @@ function EditCourse() {
                             <button className="btn btn-primary">
                                 Valider
                             </button>
-                            <button className="btn btn-link" onClick={history.goBack}>Annuler</button>
+                            <button type={"button"} className="btn btn-link" onClick={history.goBack}>Annuler</button>
                         </div>
                     </form>
                     }
@@ -276,7 +276,10 @@ function ManageCourses(){
                 <Link to={{pathname: `/dashboard/course/edit/${row.id_course}`}} className="btn btn-outline-primary btn-sm ts-buttom" size="sm">
                     Modifier
                 </Link>
-                <Link to={{pathname: `/dashboard/course/edit/${row.id_course}`}} className="btn btn-outline-danger btn-sm ml-2 ts-buttom" size="sm">
+                <Link to={{pathname: `/dashboard/article/create/${row.id_course}`}} className="btn btn-outline-success btn-sm ml-2 ts-buttom" size="sm">
+                    Ajouter article
+                </Link>
+                <Link to={{pathname: `/dashboard/course/edit/${row.id_course}`}} className="btn btn-outline-danger btn-sm mt-2 ts-buttom" size="sm">
                     Supprimer
                 </Link>
             </div>
@@ -316,7 +319,7 @@ function ManageCourses(){
                     </div>
                     }
                     <Link to={{pathname: "/dashboard/course/create"}} className="btn btn-primary">Créer un cours</Link>
-                    <button className="btn btn-link" onClick={history.goBack}>Annuler</button>
+                    <button type={"button"} className="btn btn-link" onClick={history.goBack}>Annuler</button>
                 </div>
             </div>
         </div>

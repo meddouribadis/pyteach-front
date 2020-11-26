@@ -15,6 +15,7 @@ import { ListeCoursePage } from "../../Pages/Course/ListeCourse";
 import { Exercice } from '../../Pages/Exercice';
 import { DashboardRouter } from '../../Pages/Dashboard';
 import { CourseSuiviRouter } from "../../Pages/Course/CourseSuivi";
+import { ArticleRouter } from "../../Pages/Article/Article";
 
 // Components
 import { Navbar } from '../Navbar';
@@ -46,6 +47,7 @@ function App() {
                         <Route path="/login" component={LoginPage} />
                         <Route path="/register" component={RegisterPage} />
                         <Route path="/cours" component={CourseRouter}/>
+                        <Route path="/article" component={ArticleRouter}/>
                         <Route path="/exercice" component={Exercice} />
                         <Route path="/CourseSuivi" component={CourseSuiviRouter} />
                         
