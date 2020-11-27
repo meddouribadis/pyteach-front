@@ -116,13 +116,15 @@ function completeArticle(articleId, userId) {
 // prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {
     return dispatch => {
-        dispatch(request(id));
+        return new Promise((resolve, reject) => {
+            dispatch(request(id));
 
-        articleService.delete(id)
-            .then(
-                article => dispatch(success(id)),
-                error => dispatch(failure(id, error.toString()))
-            );
+            articleService.delete(id)
+                .then(
+                    id => resolve(dispatch(success(id))),
+                    error => reject(dispatch(failure(id, error.toString())))
+                );
+        });
     };
 
     function request(id) { return { type: articleConstants.DELETE_REQUEST, id } }

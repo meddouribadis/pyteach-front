@@ -1,17 +1,20 @@
 import React, {useEffect, useState} from "react";
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import {courseActions, articleActions} from "../../_actions";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useParams} from "react-router-dom";
 import {history} from "../../_helpers";
+import {DeleteModal} from "../../Components/Modal";
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory, { PaginationProvider } from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 
+import 'react-quill/dist/quill.snow.css';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css';
+import {Skulpt, SkulptPreview} from "../../Components/Skulpt";
+
 
 function CreateArticle() {
 
@@ -62,69 +65,160 @@ function CreateArticle() {
         }
     }
 
+    function handleSubmitExercice(e) {
+        e.preventDefault();
+        article.isExercice = true;
+        setSubmitted(true);
+        if (article.title && article.description && article.id_course && article.position && article.position && article.body) {
+            dispatch(articleActions.postArticle(article));
+        }
+    }
+
     return (
         <div className="container">
             <div className="row">
-                <div className="col">
+                <div className="col-12">
                     {courses.loading && <em>Chargement...</em>}
                     {courses.error && <span className="text-danger">ERROR: {courses.error}</span>}
                     {course !== null &&
-                        <form name="form" onSubmit={handleSubmit}>
+                        <div>
                             <h1>Créer un article</h1>
                             <hr/>
 
-                            <div className="form-group">
-                                <label>Titre de l'article</label>
-                                <input type="text" name="title" value={article.title} onChange={handleChange} className={'form-control' + (submitted && !article.title ? ' is-invalid' : '')} placeholder="Titre du cours" />
-                                {submitted && !article.title &&
-                                <div className="invalid-feedback">Le titre de l'article est requis</div>
-                                }
+                            <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                <li className="nav-item">
+                                    <a className="nav-link active" id="pills-chapitre-tab" data-toggle="pill" href="#pills-chapitre"
+                                       role="tab" aria-controls="pills-chapitre" aria-selected="true">Chapitre</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" id="pills-exercice-tab" data-toggle="pill" href="#pills-exercice"
+                                       role="tab" aria-controls="pills-exercice" aria-selected="false">Exercice</a>
+                                </li>
+                            </ul>
+
+                            <div className="tab-content" id="pills-tabContent">
+                                <div className="tab-pane fade show active" id="pills-chapitre" role="tabpanel" aria-labelledby="pills-chapitre-tab">
+                                    <form name="form" onSubmit={handleSubmit}>
+
+                                        <div className="form-group">
+                                            <label>Titre de l'article</label>
+                                            <input type="text" name="title" value={article.title} onChange={handleChange} className={'form-control' + (submitted && !article.title ? ' is-invalid' : '')} placeholder="Titre du cours" />
+                                            {submitted && !article.title &&
+                                            <div className="invalid-feedback">Le titre de l'article est requis</div>
+                                            }
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label>Description de l'article</label>
+                                            <input type="text" name="description" value={article.description} onChange={handleChange} className={'form-control' + (submitted && !article.description ? ' is-invalid' : '')} placeholder="Description" />
+                                            {submitted && !article.description &&
+                                            <div className="invalid-feedback">La description de l'article est requise</div>
+                                            }
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label>Position de l'article</label>
+                                            <input type="text" name="position" value={article.position} onChange={handleChange} className={'form-control' + (submitted && !article.position ? ' is-invalid' : '')} placeholder="Pos" />
+                                            {submitted && !article.position &&
+                                            <div className="invalid-feedback">La position de l'article est requise</div>
+                                            }
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label>ID Cours</label>
+                                            <input disabled={true} type="text" name="id_course" value={course.id_course} onChange={handleChange} className={'form-control' + (submitted && !article.id_course ? ' is-invalid' : '')} placeholder="ID_Cours" />
+                                            {submitted && !article.id_course &&
+                                            <div className="invalid-feedback">La id_course de l'article est requise</div>
+                                            }
+                                        </div>
+
+                                        <label>Corps de l'article :</label>
+                                        <ReactQuill theme="snow" value={quillDescription} onChange={setArticleBody}/>
+                                        <br/>
+
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" data-toggle="switch" name="isPublished" checked={article.isPublished} onChange={handleChange} id="publishedCheck" />
+                                            <label className="form-check-label" htmlFor="defaultCheck1">
+                                                Publié
+                                            </label>
+                                        </div>
+
+                                        <br/>
+                                        <div className="form-group">
+                                            <button className="btn btn-primary">
+                                                {articleCreation && <span className="spinner-border spinner-border-sm mr-1"></span>}
+                                                Valider
+                                            </button>
+                                            <button type={"button"} className="btn btn-link" onClick={history.goBack}>Annuler</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div className="tab-pane fade" id="pills-exercice" role="tabpanel" aria-labelledby="pills-exercice-tab">
+                                    <form name="form" onSubmit={handleSubmitExercice}>
+
+                                        <div className="form-group">
+                                            <label>Titre de l'exercice</label>
+                                            <input type="text" name="title" value={article.title} onChange={handleChange} className={'form-control' + (submitted && !article.title ? ' is-invalid' : '')} placeholder="Titre du cours" />
+                                            {submitted && !article.title &&
+                                            <div className="invalid-feedback">Le titre de l'exercice est requis</div>
+                                            }
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label>Description de l'exercice</label>
+                                            <input type="text" name="description" value={article.description} onChange={handleChange} className={'form-control' + (submitted && !article.description ? ' is-invalid' : '')} placeholder="Description" />
+                                            {submitted && !article.description &&
+                                            <div className="invalid-feedback">La description de l'exercice est requise</div>
+                                            }
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label>Position de l'exercice</label>
+                                            <input type="text" name="position" value={article.position} onChange={handleChange} className={'form-control' + (submitted && !article.position ? ' is-invalid' : '')} placeholder="Position" />
+                                            {submitted && !article.position &&
+                                            <div className="invalid-feedback">La position de l'exercice est requise</div>
+                                            }
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label>ID Cours</label>
+                                            <input disabled={true} type="text" name="id_course" value={course.id_course} onChange={handleChange} className={'form-control' + (submitted && !article.id_course ? ' is-invalid' : '')} placeholder="ID_Cours" />
+                                            {submitted && !article.id_course &&
+                                            <div className="invalid-feedback">L'id_course de l'exercice est requis !</div>
+                                            }
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label>Contenu de l'exercice</label>
+                                            <textarea name="body" className={'form-control' + (submitted && !article.body ? ' is-invalid' : '')} value={course.body} onChange={handleChange} id="body" rows="3" placeholder="Code qui sera executé"></textarea>
+                                            {submitted && !article.body &&
+                                            <div className="invalid-feedback">Le contenu de l'exercice est requis !</div>
+                                            }
+                                        </div>
+
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" data-toggle="switch" name="isPublished" checked={article.isPublished} onChange={handleChange} id="publishedCheck" />
+                                            <label className="form-check-label" htmlFor="defaultCheck1">
+                                                Publié
+                                            </label>
+                                        </div>
+
+                                        <br/>
+                                        <div className="form-group">
+                                            <button className="btn btn-primary">
+                                                {articleCreation && <span className="spinner-border spinner-border-sm mr-1"></span>}
+                                                Valider
+                                            </button>
+                                            <button type={"button"} className="btn btn-link" onClick={history.goBack}>Annuler</button>
+                                        </div>
+                                    </form>
+                                    <hr/>
+                                    <h4>Prévisualisation de l'exercice</h4>
+                                    <SkulptPreview pythonCode={article.body}/>
+                                </div>
                             </div>
 
-                            <div className="form-group">
-                                <label>Description de l'article</label>
-                                <input type="text" name="description" value={article.description} onChange={handleChange} className={'form-control' + (submitted && !article.description ? ' is-invalid' : '')} placeholder="Description" />
-                                {submitted && !article.description &&
-                                <div className="invalid-feedback">La description de l'article est requise</div>
-                                }
-                            </div>
-
-                            <div className="form-group">
-                                <label>Position de l'article</label>
-                                <input type="text" name="position" value={article.position} onChange={handleChange} className={'form-control' + (submitted && !article.position ? ' is-invalid' : '')} placeholder="Pos" />
-                                {submitted && !article.position &&
-                                <div className="invalid-feedback">La position de l'article est requise</div>
-                                }
-                            </div>
-
-                            <div className="form-group">
-                                <label>ID Cours</label>
-                                <input disabled={true} type="text" name="id_course" value={course.id_course} onChange={handleChange} className={'form-control' + (submitted && !article.id_course ? ' is-invalid' : '')} placeholder="ID_Cours" />
-                                {submitted && !article.id_course &&
-                                <div className="invalid-feedback">La id_course de l'article est requise</div>
-                                }
-                            </div>
-
-                            <label>Corps de l'article :</label>
-                            <ReactQuill theme="snow" value={quillDescription} onChange={setArticleBody}/>
-                            <br/>
-
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" data-toggle="switch" name="isPublished" checked={article.isPublished} onChange={handleChange} id="publishedCheck" />
-                                <label className="form-check-label" htmlFor="defaultCheck1">
-                                    Publié
-                                </label>
-                            </div>
-
-                            <br/>
-                            <div className="form-group">
-                                <button className="btn btn-primary">
-                                    {articleCreation && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                                    Valider
-                                </button>
-                                <button type={"button"} className="btn btn-link" onClick={history.goBack}>Annuler</button>
-                            </div>
-                        </form>
+                        </div>
                     }
                 </div>
             </div>
@@ -249,6 +343,7 @@ function EditArticle() {
 function ManageArticles(){
     const articles = useSelector(state => state.articles);
     const dispatch = useDispatch();
+    const [selectedArticle, setSelectedArticle] = useState(null);
 
     // Table
     const columns = [
@@ -280,15 +375,27 @@ function ManageArticles(){
         dispatch(articleActions.getAll());
     }, []);
 
+    function handleDeleteButton(e){
+        setSelectedArticle(e)
+    }
+
+    function confirmDelete(){
+        if(selectedArticle) {
+            dispatch(articleActions.delete(selectedArticle)).then((data, err) => {
+                dispatch(articleActions.getAll());
+            });
+        }
+    }
+
     function GetActionFormat(cell, row) {
         return (
             <div>
                 <Link to={{pathname: `/dashboard/article/edit/${row.id_article}`}} className="btn btn-outline-primary btn-sm ts-buttom" size="sm">
                     Modifier
                 </Link>
-                <Link to={{pathname: `/dashboard/article/edit/${row.id_course}`}} className="btn btn-outline-danger btn-sm ml-2 ts-buttom" size="sm">
+                <button type="button" className="btn btn-outline-danger btn-sm ml-2 ts-buttom" size="sm" data-toggle="modal" data-target="#deleteArticleModal" onClick={handleDeleteButton(row.id_article)}>
                     Supprimer
-                </Link>
+                </button>
             </div>
         );
     }
@@ -327,6 +434,8 @@ function ManageArticles(){
                     }
                 </div>
             </div>
+
+            <DeleteModal idModal={"deleteArticleModal"} selectedArticle={selectedArticle} modalFunction={confirmDelete}/>
         </div>
     )
 }

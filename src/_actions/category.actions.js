@@ -91,13 +91,15 @@ function putCategory(category) {
 
 function _delete(id) {
     return dispatch => {
-        dispatch(request(id));
+        return new Promise((resolve, reject) => {
+            dispatch(request(id));
 
-        categoryService.delete(id)
-            .then(
-                id => dispatch(success(id)),
-                error => dispatch(failure(id, error.toString()))
-            );
+            categoryService.delete(id)
+                .then(
+                    id => resolve(dispatch(success(id))),
+                    error => reject(dispatch(failure(id, error.toString())))
+                );
+        });
     };
 
     function request(id) { return { type: categoryConstants.DELETE_REQUEST, id } }
