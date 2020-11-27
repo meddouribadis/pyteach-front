@@ -100,7 +100,7 @@ function DashboardHome() {
                             </div>
                         </div>
                         <ul className="list-group list-group-flush">
-                            <li className="list-group-item"><Link to={{pathname: "/dashboard/article/create"}} className="btn btn-link">Créer un article</Link></li>
+                            <li className="list-group-item"><Link to={{pathname: "/dashboard/course/manage"}} className="btn btn-link">Créer un article</Link></li>
                             <li className="list-group-item"><Link to={{pathname: "/dashboard/article/manage"}} className="btn btn-link">Gérer les articles</Link></li>
                         </ul>
                         <div className="card-footer">
