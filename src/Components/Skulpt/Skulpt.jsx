@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import './Skulpt.css';
 
 function outf(text) {
     var mypre = document.getElementById("output");
@@ -49,7 +50,7 @@ function Skulpt(props) {
                     </form>
                 </div>
 
-                <div className="col-6">
+                <div className="col-6 python-executed">
                     <pre id="output"></pre>
                     <div id="mycanvas"></div>
 
@@ -79,7 +80,7 @@ function SkulptPreview(props) {
                 </form>
             </div>
 
-            <div className="col-6">
+            <div className="col-6 python-executed">
                 <pre id="output"></pre>
                 <div id="mycanvas"></div>
 
