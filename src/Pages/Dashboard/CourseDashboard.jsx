@@ -257,7 +257,11 @@ function ManageCourses(){
             text: 'Description',
             sort: false
         }, {
-            dataField: 'author_id',
+            dataField: 'category.title',
+            text: 'Catégorie',
+            sort: true
+        }, {
+            dataField: 'author.firstName',
             text: 'Auteur',
             sort: true
         }, {
@@ -290,7 +294,7 @@ function ManageCourses(){
                 <Link to={{pathname: `/dashboard/course/edit/${row.id_course}`}} className="btn btn-outline-primary btn-sm ts-buttom" size="sm">
                     Modifier
                 </Link>
-                <Link to={{pathname: `/dashboard/article/create/${row.id_course}`}} className="btn btn-outline-success btn-sm ml-2 ts-buttom" size="sm">
+                <Link to={{pathname: `/dashboard/article/create/${row.id_course}`}} className="btn btn-outline-success btn-sm mt-2 ts-buttom" size="sm">
                     Ajouter article
                 </Link>
                 <button type="button" className="btn btn-outline-danger btn-sm mt-2 ts-buttom" size="sm" data-toggle="modal" data-target="#deleteCourseModal" onClick={handleDeleteButton(row.id_course)}>
