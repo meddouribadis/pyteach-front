@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { Switch, Link, Route, useParams, useRouteMatch} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {articleActions, courseActions} from "../../_actions";
+import {articleActions} from "../../_actions";
+import {Skulpt} from "../../Components/Skulpt";
 
 function ArticleRouter() {
-
     let { path, url } = useRouteMatch();
 
     return (
@@ -40,7 +40,16 @@ function ReadArticle() {
                         <div>
                             <h1>{articles.currentArticle.title}</h1>
                             <p className="blockquote-footer">{articles.currentArticle.description}</p>
-                            <p className="body" dangerouslySetInnerHTML={{__html: articles.currentArticle.body}}/>
+                            {!articles.currentArticle.isExercice &&
+                                <p className="body" dangerouslySetInnerHTML={{__html: articles.currentArticle.body}}/>
+                            }
+                            {articles.currentArticle.isExercice &&
+                                <div>
+                                    <Skulpt pythonCode={articles.currentArticle.body} />
+                                    <br />
+                                    <hr/>
+                                </div>
+                            }
                         </div>
                     }
                 </div>
@@ -63,9 +72,7 @@ function ReadArticle() {
                     }
                 </div>
             }
-
         </div>
-
     );
 }
 

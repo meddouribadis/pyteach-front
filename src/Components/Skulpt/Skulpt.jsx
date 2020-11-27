@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import './Skulpt.css';
 
 function outf(text) {
     var mypre = document.getElementById("output");
@@ -29,30 +30,19 @@ function runit() {
         });
 }
 
-function Exercice() {
+function Skulpt(props) {
 
-    const code = "import turtle\n" +
-        "\n" +
-        "t = turtle.Turtle()\n" +
-        "t.forward(100)\n" +
-        "\n" +
-        "print \"Hello World\" ";
+    const pythonCode = props.pythonCode;
 
     useEffect(() => {
     });
 
     return(
-        <div className="container">
             <div className="row">
-                <div className="col-12">
-                    <h3>Test en Python</h3>
-                    <hr/>
-                </div>
                 <div className="col-6">
                     <form>
                         <div className="form-group">
-                            <textarea className="form-control" id="yourcode" cols="40" rows="10">
-                                {code}
+                            <textarea className="form-control" id="yourcode" cols="40" rows="10" value={pythonCode}>
                             </textarea>
                             <br/>
                         </div>
@@ -60,15 +50,44 @@ function Exercice() {
                     </form>
                 </div>
 
-                <div className="col-6">
+                <div className="col-6 python-executed">
                     <pre id="output"></pre>
                     <div id="mycanvas"></div>
 
                     <p></p>
                 </div>
             </div>
+    );
+}
+
+function SkulptPreview(props) {
+
+    const pythonCode = props.pythonCode;
+
+    useEffect(() => {
+    });
+
+    return(
+        <div className="row">
+            <div className="col-6">
+                <form>
+                    <div className="form-group">
+                            <textarea className="form-control" id="yourcode" cols="40" rows="10" value={pythonCode}>
+                            </textarea>
+                        <br/>
+                    </div>
+                    <button type="button" className={"btn btn-primary btn-lg"} onClick={runit}>Run</button>
+                </form>
+            </div>
+
+            <div className="col-6 python-executed">
+                <pre id="output"></pre>
+                <div id="mycanvas"></div>
+
+                <p></p>
+            </div>
         </div>
     );
 }
 
-export { Exercice };
+export { Skulpt, SkulptPreview };

@@ -1,24 +1,47 @@
-# PyTeach Front
+<p align="center">
+  <a href="https://github.com/meddouribadis/DLL_CasContact_Front">
+    <img src="https://ammib2018.sciencesconf.org/data/pages/logoUEVE.jpg" alt="Logo" width="430">
+  </a>
+</p>
+
+  <h3 align="center">Projet AOS : PyTeach Front</h3>
+
+  <p align="center">
+    Professeur : <strong>Franck Ledoux</strong>
+    <br />
+    <a href="https://github.com/Malha3/PyteachBack">Lien vers le repo API</a>
+    ·
+    <a href="https://github.com/meddouribadis/DLL_CasContact_Front/issues">Report a bug</a>
+  </p>
+
+## A propos du projet
+
+#### L'application est basée sur les technologies suivantes
+
+##### Front :
+
+* [React](https://fr.reactjs.org/)
+* [Webpack](https://webpack.js.org/)
+* [Redux](https://redux.js.org/)
+* [Bootstrap](https://getbootstrap.com/)
+
+##### Back :
+
+* [Express](https://expressjs.com/fr/)
+* [Sequelize](https://sequelize.org/)
+* [APIDoc](https://apidocjs.com/)
+* [cors](https://www.npmjs.com/package/cors)
+* [joi](https://github.com/sideway/joi)
 
 ## Installation
 
-Clone this repo and open a terminal inside the folder, then type :
+Cloner le repo et installer les dépendances à l'aide des commandes suivantes  :
 
 `npm install`
 
 `npm start`
 
-## Redux Actions
-
-Main store is created in the file `./_helpers/store.js` that use the variable rootReducer who combines all stores created within the `./_reducers/` folder.
-
-Liste store disponible : 
-
-- **authentification** : Récupère l'action de connexion, puis enregistre l'utilisateur qui se connecte avec succès.
-
-- **registration** : TO DO : doc this
-- **users** : Récupère tous les utilisateurs (actions : `USERS_GETALL_REQUEST` et `USERS_GETALL_SUCCESS`)
-- **alert** : Enregistre les alertes à afficher sur le front.
+*Assurez vous d'avoir lancer [le serveur API](https://github.com/Malha3/PyteachBack) !*
 
  
 

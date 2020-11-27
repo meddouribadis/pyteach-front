@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import {categoryActions, courseActions} from "../../_actions";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useParams} from "react-router-dom";
@@ -8,7 +7,9 @@ import {history} from "../../_helpers";
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory, { PaginationProvider } from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import {DeleteModal} from "../../Components/Modal";
 
+import 'react-quill/dist/quill.snow.css';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css';
@@ -239,6 +240,7 @@ function ManageCourses(){
     const user = useSelector(state => state.authentication.user);
     const courses = useSelector(state => state.courses);
     const dispatch = useDispatch();
+    const [selectedCourse, setSelectedCourse] = useState(null);
 
     // Table
     const columns = [
@@ -255,7 +257,11 @@ function ManageCourses(){
             text: 'Description',
             sort: false
         }, {
-            dataField: 'author_id',
+            dataField: 'category.title',
+            text: 'Catégorie',
+            sort: true
+        }, {
+            dataField: 'author.firstName',
             text: 'Auteur',
             sort: true
         }, {
@@ -270,18 +276,30 @@ function ManageCourses(){
         dispatch(courseActions.getAll());
     }, []);
 
+    function handleDeleteButton(e){
+        setSelectedCourse(e)
+    }
+
+    function confirmDelete(){
+        if(selectedCourse) {
+            dispatch(courseActions.delete(selectedCourse)).then((data, err) => {
+                dispatch(courseActions.getAll());
+            });
+        }
+    }
+
     function GetActionFormat(cell, row) {
         return (
             <div>
                 <Link to={{pathname: `/dashboard/course/edit/${row.id_course}`}} className="btn btn-outline-primary btn-sm ts-buttom" size="sm">
                     Modifier
                 </Link>
-                <Link to={{pathname: `/dashboard/article/create/${row.id_course}`}} className="btn btn-outline-success btn-sm ml-2 ts-buttom" size="sm">
+                <Link to={{pathname: `/dashboard/article/create/${row.id_course}`}} className="btn btn-outline-success btn-sm mt-2 ts-buttom" size="sm">
                     Ajouter article
                 </Link>
-                <Link to={{pathname: `/dashboard/course/edit/${row.id_course}`}} className="btn btn-outline-danger btn-sm mt-2 ts-buttom" size="sm">
+                <button type="button" className="btn btn-outline-danger btn-sm mt-2 ts-buttom" size="sm" data-toggle="modal" data-target="#deleteCourseModal" onClick={handleDeleteButton(row.id_course)}>
                     Supprimer
-                </Link>
+                </button>
             </div>
         );
     }
@@ -322,11 +340,11 @@ function ManageCourses(){
                     <button type={"button"} className="btn btn-link" onClick={history.goBack}>Annuler</button>
                 </div>
             </div>
+
+            <DeleteModal idModal={"deleteCourseModal"} selectedArticle={selectedCourse} modalFunction={confirmDelete}/>
         </div>
 
     );
 }
-
-
 
 export {CreateCourse, EditCourse, ManageCourses};
