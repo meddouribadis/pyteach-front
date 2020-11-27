@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import {categoryActions, courseActions} from "../../_actions";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useParams} from "react-router-dom";
@@ -8,11 +7,12 @@ import {history} from "../../_helpers";
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory, { PaginationProvider } from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import {DeleteModal} from "../../Components/Modal";
 
+import 'react-quill/dist/quill.snow.css';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css';
-import {DeleteModal} from "../../Components/Modal";
 
 function CreateCourse() {
 
@@ -346,7 +346,5 @@ function ManageCourses(){
 
     );
 }
-
-
 
 export {CreateCourse, EditCourse, ManageCourses};
