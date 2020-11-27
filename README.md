@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/meddouribadis/DLL_CasContact_Front">
+  <a href="https://github.com/meddouribadis/pyteach-front">
     <img src="https://ammib2018.sciencesconf.org/data/pages/logoUEVE.jpg" alt="Logo" width="430">
   </a>
 </p>
@@ -16,7 +16,7 @@
 
 ## A propos du projet
 
-#### L'application est basée sur les technologies suivantes
+#### L'application est basée sur les technologies suivantes :
 
 ##### Front :
 
@@ -43,5 +43,9 @@ Cloner le repo et installer les dépendances à l'aide des commandes suivantes  
 
 *Assurez vous d'avoir lancer [le serveur API](https://github.com/Malha3/PyteachBack) !*
 
- 
+##  Auteurs
+
+* Badis Meddouri
+* Malha Ait Mohammed
+* Lauraine Houraga
 
