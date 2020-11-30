@@ -34,7 +34,7 @@ function displayCourseInfo(course){
     return (
         <div className="course">
             <h1>{course.title}</h1>
-            <p className="blockquote-footer">Catégorie : {course.category.title} - Auteur : {course.User.firstName} {course.User.lastName}</p>
+            <p className="blockquote-footer">Catégorie : {course.category.title} - Auteur : {course.author.firstName} {course.author.lastName}</p>
             <hr/>
             <p className="body" dangerouslySetInnerHTML={{__html: course.description}}/>
             <h2>Le contenu de ce cours :</h2>
